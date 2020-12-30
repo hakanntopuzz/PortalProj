@@ -41,7 +41,6 @@
         <ProjectReference Include="..\DevPortal.Resources\DevPortal.Resources.csproj" />
         <ProjectReference Include="..\DevPortal.Validation\DevPortal.Validation.csproj" />
         <ProjectReference Include="..\DevPortal.Web.Library\DevPortal.Web.Library.csproj" />
-        <ProjectReference Include="..\DevPortal.Web\DevPortal.Web.csproj" />
         <ProjectReference Include="..\Modules\DevPortal.Cryptography.Business.Abstract\DevPortal.Cryptography.Business.Abstract.csproj" />
         <ProjectReference Include="..\Modules\DevPortal.Cryptography.Model\DevPortal.Cryptography.Model.csproj" />
         <ProjectReference Include="..\Modules\DevPortal.SvnAdmin.Business\DevPortal.SvnAdmin.Business.csproj" />

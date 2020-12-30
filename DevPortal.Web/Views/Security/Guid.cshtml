@@ -1,0 +1,36 @@
+﻿@model GuidViewModel
+@{
+    ViewData[ViewDataNames.Title] = "GUID Oluşturma";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<div class="mb-5">
+    <h1 class="title-primary display-4">GUID Oluşturma</h1>
+    <input type="hidden" id="favouritePageName" name="favouritePageName" value="GUID Oluşturma" />
+    <input type="hidden" id="favouriteId" />
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-simple btn-sm hover-action float-right" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+            <button class="btn btn-simple btn-sm hover-action float-right active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(SecurityControllerActionNames.GenerateGuid, ControllerNames.Security, FormMethod.Get))
+{
+    <input type="submit" value="GUID Oluştur" class="btn btn-primary" />
+}
+
+@if (Model.Guid != null)
+{
+    <div class="col-md-6 col-sm-12 col-12 my-5 pl-0">
+        <button class="btn btn-block" id="copyButton" type="button" data-toggle="tooltip" data-original-title="Kopyala">
+            <span class="clip-board-wrapper" id="clipboard">
+                <pre>@Model.Guid</pre>
+            </span>
+        </button>
+    </div>
+}
+@section Scripts
+{
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

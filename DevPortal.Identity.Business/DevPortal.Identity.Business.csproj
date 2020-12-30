@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <OutputPath>bin\</OutputPath>
+        <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+        <Version>1.2.0.1478</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AB.Framework.Logger.Nlog.Abstract" Version="4.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DevPortal.Business.Abstract\DevPortal.Business.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Data.Abstract\DevPortal.Data.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Framework.Abstract\DevPortal.Framework.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Identity.Business.Abstract\DevPortal.Identity.Business.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Model\DevPortal.Model.csproj" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,394 @@
+﻿@model ApplicationViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Uygulama Bilgileri";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Uygulama Bilgileri</h1>
+@Html.HiddenFor(x => x.Application.Id, new { name = "applicationId", id = "applicationId" })
+@Html.HiddenFor(x => x.Application.Name, new { name = "applicationName", id = "applicationName" })
+<input id="favouritePageName" type="hidden" value="@Model.FavouritePageName" />
+<input type="hidden" id="favouriteId" />
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>
+                @Model.Application.Name
+            </h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                <a class="btn btn-simple btn-sm hover-primary" href="@Url.Action(ApplicationPdfExportControllerActionNames.ExportToPdf, ControllerNames.ApplicationPdfExport, new { id = Model.Application.Id })">
+                    <i class="fa fa-file-export" aria-hidden="true"></i> @ButtonTextNames.Export
+                </a>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(ApplicationControllerActionNames.Edit, ControllerNames.Application, new { id = Model.Application.Id })">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteApplication"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.Application.RecordUpdateInfo.ModifiedDate - @Model.Application.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.Application.RecordUpdateInfo.CreatedDate - @Model.Application.RecordUpdateInfo.CreatedUserEmail">
+                    <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+                </button>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item pl-0">
+                <strong>Durum : </strong>
+                <span>@Model.Application.Status</span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Uygulama Grubu : </strong>
+                <a href="@Url.Action(ApplicationGroupControllerActionNames.Detail, ControllerNames.ApplicationGroup, new { id = Model.Application.ApplicationGroupId })">@Model.Application.ApplicationGroupName</a>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Uygulama Tipi : </strong>
+                <span>@Model.Application.ApplicationType</span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Redmine : </strong>
+                <a href="@Model.Application.RedmineProjectUrl" target="_blank">
+                    <span>@Model.Application.RedmineProjectUrl</span>
+                </a>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Açıklama : </strong>
+                <span>@Model.Application.Description</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="mt-5">
+    <nav class="nav nav-pills flex-column flex-sm-row" id="nav-tab" role="tablist">
+        <a class="flex-sm-fill nav-link" id="dependencies-tab" data-toggle="tab" href="#dependencies-tab" aria-controls="nav-dependencies" role="tab" aria-selected="false">Bağımlılıklar</a>
+        @if (Model.IsNugetPackage)
+        {
+            <a class="flex-sm-fill nav-link" id="nuget-tab" data-toggle="tab" href="#nuget-tab" aria-controls="nav-nuget" role="tab" aria-selected="false">Nuget Paketleri</a>
+        }
+        else
+        {
+            <a class="flex-sm-fill nav-link active" id="environment-tab" data-toggle="tab" href="#environment-tab" role="tab" aria-controls="nav-environment" aria-selected="true">Ortam Bilgileri</a>
+        }
+        <a class="flex-sm-fill nav-link" id="svn-tab" data-toggle="tab" href="#svn-tab" aria-controls="nav-svn" role="tab" aria-selected="false">Svn Depoları</a>
+        <a class="flex-sm-fill nav-link" id="jenkins-tab" data-toggle="tab" href="#jenkins-tab" aria-controls="nav-jenkins" role="tab" aria-selected="false">Jenkins Görevleri</a>
+        <a class="flex-sm-fill nav-link" id="sonarqube-tab" data-toggle="tab" href="#sonarqube-tab" aria-controls="nav-sonarqube" role="tab" aria-selected="false">SonarQube Projeleri</a>
+        <a class="flex-sm-fill nav-link" id="build-settings-tab" data-toggle="tab" href="#build-settings-tab" aria-controls="nav-build-settings" role="tab" aria-selected="false">Derleme Ayarları</a>
+    </nav>
+    <div class="tab-content">
+        @if (Model.IsNugetPackage)
+        {
+            <div class="tab-pane fade" id="nav-nuget" role="tabpanel" aria-labelledby="nuget-tab">
+                <div class="py-3">
+                    <h4 class="title-secondary">Nuget Paketleri</h4>
+                    <span>Uygulama tarafından üretilen ve yayınlanan AB Kütüphaneleri Nuget paketlerinin listesidir. Bir uygulama birden fazla Nuget paketine sahip olabilir.</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <span id="nuget-count" class="badge text-muted"> </span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Add, ApplicationNugetPackageControllerActionNames.Add, ControllerNames.ApplicationNugetPackage, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </div>
+                <table class="table table-bordered table-striped">
+                    <caption class="hide">Nuget Paketleri Listesi</caption>
+                    <thead>
+                        <tr class="d-flex">
+                            <th scope="col" class="col-md-4">Paket Adı</th>
+                            <th scope="col" class="col-md-7">Paket Url</th>
+                            <th scope="col" class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="nuget-tab-content-table-tbody">
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="tab-pane fade show active" id="nav-environment" role="tabpanel" aria-labelledby="environment-tab">
+                <div class="py-3">
+                    <h4 class="title-secondary">Uygulama Ortamları</h4>
+                    <span>Uygulama kurulum ortamlarının listesidir.</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <span id="environment-count" class="badge text-muted"> </span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Add, ApplicationEnvironmentControllerActionNames.Add, ControllerNames.ApplicationEnvironment, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </div>
+                <table class="table table-bordered table-striped">
+                    <caption class="hide">Ortam Bilgileri Listesi</caption>
+                    <thead>
+                        <tr class="d-flex">
+                            <th scope="col" class="col-md-1">Ortam</th>
+                            <th scope="col" class="col-md-2 col-sm-3">Log Durumu</th>
+                            <th scope="col" class="col-md-8 col-sm-6">Url</th>
+                            <th scope="col" class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="environment-tab-content-table-tbody">
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <div class="tab-pane fade" id="nav-svn" role="tabpanel" aria-labelledby="svn-tab">
+            <div class="py-3">
+                <h4 class="title-secondary">SVN Depoları</h4>
+                <span>Uygulama için kullanılan SVN depolarının listesidir. Bir uygulamanın birden fazla deposu olabilir.</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <span id="svn-count" class="badge text-muted"> </span>
+                @if (Model.IsAuthorized)
+                {
+                    @Html.ActionLink(ButtonTextNames.Add, ApplicationSvnControllerActionNames.Add, ControllerNames.ApplicationSvn, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                }
+            </div>
+            <table class="table table-bordered table-striped">
+                <caption class="hide">SVN Depoları Listesi</caption>
+                <thead>
+                    <tr class="d-flex">
+                        <th scope="col" class="col-md-7">Depo Url</th>
+                        <th scope="col" class="col-md-4">Depo Tipi</th>
+                        <th scope="col" class="col-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody id="svn-tab-content-table-tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-jenkins" role="tabpanel" aria-labelledby="jenkins-tab">
+            <div class="py-3">
+                <h4 class="title-secondary">Jenkins Görevleri</h4>
+                <span>Uygulamanın Jenkins görevlerinin listesidir.</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <span id="jenkins-count" class="badge text-muted"> </span>
+                @if (Model.IsAuthorized)
+                {
+                    @Html.ActionLink(ButtonTextNames.Add, ApplicationJenkinsJobControllerActionNames.Add, ControllerNames.ApplicationJenkinsJob, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                }
+            </div>
+            <table class="table table-bordered table-striped">
+                <caption class="hide">Jenkins Görevleri Listesi</caption>
+                <thead>
+                    <tr class="d-flex">
+                        <th scope="col" class="col-md-7">Jenkins Görev Url</th>
+                        <th scope="col" class="col-md-4">Görev Tipi</th>
+                        <th scope="col" class="col-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody id="jenkins-tab-content-table-tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-sonarqube" role="tabpanel" aria-labelledby="sonarqube-tab">
+            <div class="py-3">
+                <h4 class="title-secondary">SonarQube Projeleri</h4>
+                <span>Uygulamanın SonarQube analizi projelerinin listesidir. Bir uygulamanın Günlük, Haftalık ve Versiyon analizleri gibi birden fazla analiz projesi olabilir.</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-3">
+
+                <span id="sonarqube-count" class="badge text-muted"> </span>
+                @if (Model.IsAuthorized)
+                {
+                    @Html.ActionLink(ButtonTextNames.Add, ApplicationSonarqubeProjectControllerActionNames.Add, ControllerNames.ApplicationSonarqubeProject, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                }
+            </div>
+            <table class="table table-bordered table-striped">
+                <caption class="hide">SonarQube Projeleri Listesi</caption>
+                <thead>
+                    <tr class="d-flex">
+                        <th scope="col" class="col-md-7">Proje Url</th>
+                        <th scope="col" class="col-md-4">Proje Tipi</th>
+                        <th scope="col" class="col-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody id="sonarqube-tab-content-table-tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-dependencies" role="tabpanel" aria-labelledby="dependencies-tab">
+            <div class="d-flex justify-content-end align-items-center py-3">
+                <button type="button" class="btn btn-simple btn-sm hover-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-grip-vertical" aria-hidden="true"></i> Diğer işlemler
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    @Html.ActionLink(ButtonTextNames.ExportApplicationDependenciesCsv, DependenciesExportControllerActionNames.ExportApplicationDependenciesCsv, ControllerNames.DependenciesExport, new { applicationId = Model.Application.Id }, new { @class = "dropdown-item", id = "csv_export_application_dependencies" })
+                    @Html.ActionLink(ButtonTextNames.ExportDatabaseDependenciesCsv, DependenciesExportControllerActionNames.ExportDatabaseDependenciesCsv, ControllerNames.DependenciesExport, new { applicationId = Model.Application.Id }, new { @class = "dropdown-item", id = "csv_export_database_dependencies" })
+                    @Html.ActionLink(ButtonTextNames.ExportExternalDependenciesCsv, DependenciesExportControllerActionNames.ExportExternalDependenciesCsv, ControllerNames.DependenciesExport, new { applicationId = Model.Application.Id }, new { @class = "dropdown-item", id = "csv_export_external_dependencies" })
+                    @Html.ActionLink(ButtonTextNames.ExportNugetPackageDependenciesCsv, DependenciesExportControllerActionNames.ExportNugetPackageDependenciesCsv, ControllerNames.DependenciesExport, new { applicationId = Model.Application.Id }, new { @class = "dropdown-item", id = "csv_export_nuget_package_dependencies" })
+                    <button id="export-dependencies-as-wiki" class="dropdown-item">@ButtonTextNames.ExportWiki</button>
+                </div>
+            </div>
+            <div class="mb-5">
+                <h4 class="title-secondary">Uygulama Bağımlılıkları</h4>
+                <span>Uygulamanın istemcisi olduğu diğer uygulamaların ve servislerin listesidir.</span>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <span id="application-count" class="badge text-muted"> </span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Add, ApplicationDependencyControllerActionNames.Add, ControllerNames.ApplicationDependency, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </div>
+                <table class="table table-bordered table-striped">
+                    <caption class="hide">Uygulama Bağımlılıkları</caption>
+                    <thead>
+                        <tr class="d-flex">
+                            <th scope="col" class="col-md-4">Uygulama Adı</th>
+                            <th scope="col" class="col-md-7">Uygulama Grubu</th>
+                            <th scope="col" class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="application-tab-content-table-tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-5">
+                <h4 class="title-secondary">Veritabanı Bağımlılıkları</h4>
+                <span>Uygulamanın kullandığı veritabanlarının listesidir.</span>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <span id="database-count" class="badge text-muted"> </span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Add, DatabaseDependencyControllerActionNames.Add, ControllerNames.DatabaseDependency, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </div>
+                <table class="table table-bordered table-striped">
+                    <caption class="hide">Veritabanı Bağımlılıkları</caption>
+                    <thead>
+                        <tr class="d-flex">
+                            <th scope="col" class="col-md-4">Veritabanı Adı</th>
+                            <th scope="col" class="col-md-7">Veritabanı Grubu</th>
+                            <th scope="col" class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="database-tab-content-table-tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-5">
+                <h4 class="title-secondary">Harici Bağımlılıklar</h4>
+                <span>Uygulamanın bağımlı olduğu ancak ActiveBuilder tarafından geliştirilmeyen uygulamalar, servisler, scriptler vb. bağımlılıkların listesidir.</span>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <span id="external-count" class="badge text-muted"> </span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Add, ExternalDependencyControllerActionNames.Add, ControllerNames.ExternalDependency, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </div>
+                <table class="table table-bordered table-striped">
+                    <caption class="hide">Harici Bağımlılıklar</caption>
+                    <thead>
+                        <tr class="d-flex">
+                            <th scope="col" class="col-md-4">Bağımlılık Adı</th>
+                            <th scope="col" class="col-md-7">Açıklama</th>
+                            <th scope="col" class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="external-tab-content-table-tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-5">
+                <h4 class="title-secondary">Nuget Paketi Bağımlılıkları</h4>
+                <span>Uygulamanın kullandığı AB Kütüphaneleri Nuget paketlerinin listesidir.</span>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <span id="nugetpackage-count" class="badge text-muted"> </span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Add, NugetPackageDependencyControllerActionNames.Add, ControllerNames.NugetPackageDependency, new { applicationId = Model.Application.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                </div>
+                <table class="table table-bordered table-striped">
+                    <caption class="hide">Nuget Paketi Bağımlılıkları</caption>
+                    <thead>
+                        <tr class="d-flex">
+                            <th scope="col" class="col-md-4">Paket Adı</th>
+                            <th scope="col" class="col-md-7">Paket Url</th>
+                            <th scope="col" class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="nugetpackage-tab-content-table-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-build-settings" role="tabpanel" aria-labelledby="build-settings-tab">
+            <div class="py-3">
+                <h4 class="title-secondary">Derleme Ayarları</h4>
+                <span>Uygulamanın derleme ayarlarının listesidir.</span>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-muted"> </span>
+                    <span id="sonarqube-count" class="badge text-muted"></span>
+                    @if (Model.IsAuthorized)
+                    {
+                        @Html.ActionLink(ButtonTextNames.Edit, BaseActionNames.Edit, ControllerNames.ApplicationBuildSettings, new { id = Model.Application.Id }, new { @class = "btn btn-outline-success btn-sm" })
+                    }
+                </div>
+                <h6 class="title-secondary">Genel Ayarlar</h6>
+                <div class="mb-5">
+                    <ul class="list-group list-group-flush pl-0">
+                        <li class="list-group-item pl-0"><strong>Çalışma Alanı</strong> : <span id="workspace"></span></li>
+                        <li class="list-group-item pl-0"><strong>Solüsyon Adı</strong> : <span id="solution-name"></span></li>
+                        <li class="list-group-item pl-0"><strong>Proje Adı</strong> : <span id="project-name"></span></li>
+                        <li class="list-group-item pl-0"><strong>Kurulum Yolu</strong> : <span id="deploy-path"></span></li>
+                    </ul>
+                </div>
+                <h6 class="title-secondary">Yayınlama Profilleri</h6>
+                <div class="mb-5">
+                    <ul class="list-group list-group-flush pl-0">
+                        <li class="list-group-item pl-0"><strong>Dev Yayınlama Profil Adı</strong> : <span id="dev-publish-profile"></span></li>
+                        <li class="list-group-item pl-0"><strong>Test Yayınlama Profil Adı</strong> : <span id="test-publish-profile"></span></li>
+                        <li class="list-group-item pl-0"><strong>PreProd Yayınlama Profil Adı</strong> : <span id="pre-prod-publish-profile"></span></li>
+                        <li class="list-group-item pl-0"><strong>Prod Yayınlama Profil Adı</strong> : <span id="prod-publish-profile"></span></li>
+                    </ul>
+                </div>
+                <h6 class="title-secondary">Dizin Adresleri</h6>
+                <div class="mb-5">
+                    <ul class="list-group list-group-flush pl-0">
+                        <li class="list-group-item pl-0"><strong>Dev Dizin Adresi</strong> : <span id="dev-remote-address"></span></li>
+                        <li class="list-group-item pl-0"><strong>Test Dizin Adresi</strong> : <span id="test-remote-address"></span></li>
+                        <li class="list-group-item pl-0"><strong>PreProd Dizin Adresi</strong> : <span id="pre-prod-remote-address"></span></li>
+                        <li class="list-group-item pl-0"><strong>Prod Dizin Adresi</strong> : <span id="prod-remote-address"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="dependenciesModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Bağımlılık Listesi Dışa Aktarma - Wiki</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="my-3">
+                            <button id="export-dependencies-as-wiki-file" class="btn btn-secondary">@ButtonTextNames.DownloadRawText</button>
+                        </div>
+                        <div class="my-3">
+                            <button class="btn btn-block" id="copyButton" type="button" data-toggle="tooltip" data-original-title="Kopyala">
+                                <span class="clip-board-wrapper" id="clipboard">
+                                    <pre id="dependencies-wiki-text">
+                        </pre>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Component.InvokeAsync("Audit", new { tableName = "Application", recordId = Model.Application.Id })
+</div>
+@section Scripts{
+    <script src="~/bundles/js/applicationDetail.min.js" asp-append-version="true"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

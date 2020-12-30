@@ -1,0 +1,38 @@
+﻿@model EnvironmentViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Ortam Bilgileri";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Ortam Bilgileri</h1>
+@Html.HiddenFor(x => x.Environment.Id, new { name = "environmentId", id = "environmentId" })
+@Html.HiddenFor(x => x.Environment.Name, new { name = "favouritePageName", id = "favouritePageName" })
+<input type="hidden" id="favouriteId" />
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>@Model.Environment.Name</h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(EnvironmentControllerActionNames.Edit, ControllerNames.Environment, new { id = Model.Environment.Id })">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteEnvironment"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.Environment.RecordUpdateInfo.ModifiedDate - @Model.Environment.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.Environment.RecordUpdateInfo.CreatedDate - @Model.Environment.RecordUpdateInfo.CreatedUserEmail"><i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@await Component.InvokeAsync("Audit", new { tableName = "Environment", recordId = Model.Environment.Id })
+
+@section Scripts{
+    <script src="~/bundles/js/environmentDetail.min.js" asp-append-version="true"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

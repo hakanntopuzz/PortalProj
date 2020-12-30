@@ -1,0 +1,69 @@
+﻿@model DatabaseGroupViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Veritabanı Grubu Bilgileri";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Veritabanı Grubu Bilgileri</h1>
+@Html.HiddenFor(x => x.DatabaseGroup.Id, new { name = "databaseGroupId", id = "databaseGroupId" })
+@Html.HiddenFor(x => x.DatabaseGroup.Name, new { name = "favouritePageName", id = "favouritePageName" })
+<input type="hidden" id="favouriteId" />
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>@Model.DatabaseGroup.Name</h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(DatabaseGroupControllerActionNames.Edit, ControllerNames.DatabaseGroup, new { id = Model.DatabaseGroup.Id })">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteDatabaseGroup"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.DatabaseGroup.RecordUpdateInfo.ModifiedDate - @Model.DatabaseGroup.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.DatabaseGroup.RecordUpdateInfo.CreatedDate - @Model.DatabaseGroup.RecordUpdateInfo.CreatedUserEmail"><i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.HasDatabases)
+{
+    <div class="d-flex justify-content-between align-items-center mt-5 pb-3">
+        <span class="badge text-muted">@Model.Databases.Count veritabanı</span>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped">
+                <caption class="hide">Veritabanı Grupları</caption>
+                <thead>
+                    <tr class="d-flex">
+                        <th scope="col" class="col-md-4">Veritabanı Adı</th>
+                        <th scope="col" class="col-md-4">Veritabanı Tipi</th>
+                        <th scope="col" class="col-md-4">Son Güncelleme</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Databases)
+                    {
+                        <tr class="d-flex">
+                            <td class="col-md-4">@Html.ActionLink(item.Name, DatabaseControllerActionNames.Detail, ControllerNames.Database, new { id = item.Id })</td>
+                            <td class="col-md-4">@item.DatabaseTypeName</td>
+                            <td class="col-md-4">@item.ModifiedDate.ToString("dd MMMM yyyy HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@await Component.InvokeAsync("Audit", new { tableName = "DatabaseGroup", recordId = Model.DatabaseGroup.Id })
+
+@section Scripts{
+    <script src="~/bundles/js/databaseGroupDetail.min.js" asp-append-version="true"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

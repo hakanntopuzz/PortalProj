@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <OutputPath>bin\</OutputPath>
+        <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+        <Version>1.2.0.1478</Version>
+        <Configurations>Debug;Release</Configurations>
+        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DevPortal.Framework.Model\DevPortal.Framework.Model.csproj" />
+        <ProjectReference Include="..\DevPortal.Model\DevPortal.Model.csproj" />
+        <ProjectReference Include="..\DevPortal.Web.Library.Model\DevPortal.Web.Library.Model.csproj" />
+    </ItemGroup>
+</Project>

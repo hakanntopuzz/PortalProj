@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputPath>bin\</OutputPath>
+    <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+    <Version>1.2.0.1478</Version>
+    <Configurations>Debug;Release</Configurations>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.2.0" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevPortal.Framework.Model\DevPortal.Framework.Model.csproj" />
+    <ProjectReference Include="..\DevPortal.Model\DevPortal.Model.csproj" />
+  </ItemGroup>
+</Project>

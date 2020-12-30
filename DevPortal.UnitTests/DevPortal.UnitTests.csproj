@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <OutputPath>bin\</OutputPath>
+        <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+        <Version>1.2.0.1478</Version>
+        <IsPackable>false</IsPackable>
+        <Configurations>Debug;Release</Configurations>
+        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AB.Data.ApiClient" Version="4.3.0" />
+        <PackageReference Include="AB.Framework.SettingsReader.Abstract" Version="4.0.0" />
+        <PackageReference Include="AB.Framework.TextTemplates.Abstract" Version="1.0.1" />
+        <PackageReference Include="AB.Framework.UnitTests" Version="2.2.0" />
+        <PackageReference Include="coverlet.msbuild" Version="2.9.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
+        <PackageReference Include="FluentAssertions.AspNetCore.Mvc" Version="2.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="Moq" Version="4.14.5" />
+        <PackageReference Include="nunit" Version="3.12.0" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="NunitXml.TestLogger" Version="2.1.62" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DevPortal.Resources\DevPortal.Resources.csproj" />
+        <ProjectReference Include="..\DevPortal.Validation\DevPortal.Validation.csproj" />
+        <ProjectReference Include="..\DevPortal.Web.Library\DevPortal.Web.Library.csproj" />
+        <ProjectReference Include="..\DevPortal.Web\DevPortal.Web.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.Cryptography.Business.Abstract\DevPortal.Cryptography.Business.Abstract.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.Cryptography.Model\DevPortal.Cryptography.Model.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.SvnAdmin.Business\DevPortal.SvnAdmin.Business.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="LogManagerTests\BusinessTests\Factories\" />
+    </ItemGroup>
+</Project>

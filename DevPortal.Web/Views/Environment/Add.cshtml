@@ -1,0 +1,27 @@
+﻿@model EnvironmentViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Yeni Ortam";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Yeni Ortam</h1>
+
+@using (Html.BeginForm(EnvironmentControllerActionNames.Add, ControllerNames.Environment, FormMethod.Post, new { id = "environment-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(x => x.Environment.Name, new { @class = "col-form-label" })
+                @Html.TextBoxFor(x => x.Environment.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Environment.Name)
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <button type="submit" class="btn btn-success">Kaydet</button>
+    </div>
+}
+
+@section Scripts{
+    <script src="~/bundles/js/jquery-val.min.js" asp-append-version="true"></script>
+}

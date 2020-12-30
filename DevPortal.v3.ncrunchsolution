@@ -1,0 +1,22 @@
+﻿<SolutionConfiguration>
+  <Settings>
+    <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <InstrumentationMode>Optimised</InstrumentationMode>
+    <MetricsExclusionList>
+      <Value>DevPortal.Business.Abstract\DevPortal.Business.Abstract.csproj</Value>
+      <Value>Modules\DevPortal.Cryptography.Business.Abstract\DevPortal.Cryptography.Business.Abstract.csproj</Value>
+      <Value>DevPortal.Data.Abstract\DevPortal.Data.Abstract.csproj</Value>
+      <Value>DevPortal.Framework.Abstract\DevPortal.Framework.Abstract.csproj</Value>
+      <Value>DevPortal.Framework.Model\DevPortal.Framework.Model.csproj</Value>
+      <Value>Modules\DevPortal.Log.Business.Abstract\DevPortal.Log.Business.Abstract.csproj</Value>
+      <Value>Modules\DevPortal.NugetManager.Business.Abstract\DevPortal.NugetManager.Business.Abstract.csproj</Value>
+      <Value>Modules\DevPortal.SvnAdmin.Business.Abstract\DevPortal.SvnAdmin.Business.Abstract.csproj</Value>
+      <Value>Modules\DevPortal.SvnAdmin.Data.Abstract\DevPortal.SvnAdmin.Data.Abstract.csproj</Value>
+      <Value>DevPortal.Web.Library.Abstract\DevPortal.Web.Library.Abstract.csproj</Value>
+      <Value>Modules\DevPortal.SvnAdmin.Data\DevPortal.SvnAdmin.Data.csproj\Wrappers</Value>
+      <Value>Modules\DevPortal.JenkinsManager.Business.Abstract\DevPortal.JenkinsManager.Business.Abstract.csproj</Value>
+      <Value>DevPortal.Identity.Business.Abstract\DevPortal.Identity.Business.Abstract.csproj</Value>
+    </MetricsExclusionList>
+    <SolutionConfigured>True</SolutionConfigured>
+  </Settings>
+</SolutionConfiguration>

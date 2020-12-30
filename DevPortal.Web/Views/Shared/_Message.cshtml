@@ -1,0 +1,36 @@
+﻿@{
+    if (HasMessage())
+    {
+        var iconClass = "";
+        var textMessage = "";
+        var messageType = "";
+        var messsage = "";
+        if (TempData[nameof(TempDataKeys.ResultMessage)] is Dictionary<string, string> dict)
+        {
+            messageType = dict[TempDataKeys.MessageType];
+            messsage = dict[TempDataKeys.Message];
+        }
+
+        @if (messageType == MessageType.Error.ToString())
+        {
+            iconClass = "alert-danger";
+            textMessage = "Başarısız!";
+
+        }
+        else
+        {
+            iconClass = "alert-success";
+            textMessage = "Başarılı!";
+        }
+        <div class="container-middle mt-3 alertMessage" style="display:none;">
+            <div class="alert @iconClass">
+                <strong>@textMessage</strong> <br /> @Html.Raw(@messsage)
+            </div>
+        </div>
+    }
+
+    bool HasMessage()
+    {
+        return TempData[TempDataKeys.ResultMessage] is Dictionary<string, string> dict;
+    }
+}

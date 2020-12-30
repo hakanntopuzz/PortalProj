@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/bundles/css/print.css" asp-append-version="true" />
+</head>
+<body>
+    <h1 class="title-primary font-weight-light">Uygulama Bilgileri</h1>
+    <h3>@Model.Application.Name</h3>
+    <p class="lead">Son güncelleme: @Model.Application.RecordUpdateInfo.ModifiedDate - @Model.Application.RecordUpdateInfo.ModifiedUserEmail</p>
+    <p class="lead">Oluşturma: @Model.Application.RecordUpdateInfo.CreatedDate - @Model.Application.RecordUpdateInfo.CreatedUserEmail</p>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item pl-0">
+            <strong>Durum : </strong>
+            <span>@Model.Application.Status</span>
+        </li>
+        <li class="list-group-item pl-0">
+            <strong>Uygulama Grubu : </strong>
+            <span>@Model.Application.ApplicationGroupName</span>
+        </li>
+        <li class="list-group-item pl-0">
+            <strong>Uygulama Tipi : </strong>
+            <span>@Model.Application.ApplicationType</span>
+        </li>
+        <li class="list-group-item pl-0">
+            <strong>Redmine : </strong>
+            <a href="@Model.Application.RedmineProjectUrl" target="_blank">
+                <span>@Model.Application.RedmineProjectUrl</span>
+            </a>
+        </li>
+        <li class="list-group-item pl-0">
+            <strong>Açıklama : </strong>
+            <span>@Model.Application.Description</span>
+        </li>
+    </ul>
+
+    @if (Model.HasApplicationEnvironments && !Model.IsNugetPackage)
+    {
+        <div class="d-flex mt-5">
+            <h5>Ortam Bilgileri</h5>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.ApplicationEnvironments.Count ortam</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-2">Ortam</th>
+                    <th scope="col" class="col-2">Log Durumu</th>
+                    <th scope="col" class="col-8"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ApplicationEnvironments)
+                {
+                    <tr class="d-flex">
+                        <td class="col-2">
+                            @item.EnvironmentName
+                        </td>
+                        <td class="col-2">
+                            @item.HasLogText
+                        </td>
+                        <td class="col-8">
+                            <p><span class="font-weight-bold">Url: </span> @item.Url</p>
+                            <p><span class="font-weight-bold">Fiziksel Yol: </span> @item.PhysicalPath</p>
+                            <p><span class="font-weight-bold">Log Dizini Yolu: </span> @item.LogFilePath</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.HasSvnRepositories)
+    {
+        <div class="d-flex">
+            <h5>Svn Depoları</h5>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.SvnRepositories.Count ortam</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-3">Depo Adı</th>
+                    <th scope="col" class="col-7">Depo Url</th>
+                    <th scope="col" class="col-2">Depo Tipi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SvnRepositories)
+                {
+                    <tr class="d-flex">
+                        <td class="col-3">
+                            @item.Name
+                        </td>
+                        <td class="col-7">
+                            @item.SvnUrl
+                        </td>
+                        <td class="col-2">
+                            <p>@item.SvnRepositoryTypeName</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.HasJenkinsJobs)
+    {
+        <div class="d-flex">
+            <h5>Jenkins Görevleri</h5>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.JenkinsJobs.Count görev</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-8">Görev Url</th>
+                    <th scope="col" class="col-4">Görev Tipi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.JenkinsJobs)
+                {
+                    <tr class="d-flex">
+                        <td class="col-8">
+                            <a href="@item.JobUrl">@item.JobUrl</a>
+                        </td>
+                        <td class="col-4">
+                            @item.JenkinsJobTypeName
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.HasSonarqubeProjects)
+    {
+        <div class="d-flex">
+            <h5>SonarQube Projeleri</h5>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.SonarqubeProjects.Count proje</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-8">Proje Url</th>
+                    <th scope="col" class="col-4">Proje Tipi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SonarqubeProjects)
+                {
+                    <tr class="d-flex">
+                        <td class="col-8">
+                            <a href="@item.ProjectUrl">@item.ProjectUrl</a>
+                        </td>
+                        <td class="col-4">
+                            @item.SonarqubeProjectTypeName
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.IsNugetPackage && Model.HasApplicationNugetPackages)
+    {
+        <div class="d-flex">
+            <h5>Nuget Paketleri</h5>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.ApplicationNugetPackages.Count paket</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-4">Paket Adı</th>
+                    <th scope="col" class="col-8">Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ApplicationNugetPackages)
+                {
+                    <tr class="d-flex">
+                        <td class="col-4">
+                            @item.NugetPackageName
+                        </td>
+                        <td class="col-8">
+                            <a href="@item.PackageUrl">@item.PackageUrl</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <h5>Bağımlılıklar</h5>
+
+    @if (Model.HasApplicationDependencies)
+    {
+        <div class="d-flex">
+            <h6>Uygulamalar</h6>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.ApplicationDependencies.Count uygulama</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-3">Uygulama Adı</th>
+                    <th scope="col" class="col-7">Uygulama Grubu</th>
+                    <th scope="col" class="col-2">Açıklama</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ApplicationDependencies)
+                {
+                    <tr class="d-flex">
+                        <td class="col-3">
+                            @item.Name
+                        </td>
+                        <td class="col-7">
+                            @item.ApplicationGroupName
+                        </td>
+                        <td class="col-2">
+                            @item.Description
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.HasDatabaseDependencies)
+    {
+        <div class="d-flex">
+            <h6>Veritabanları</h6>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.DatabaseDependencies.Count veritabanı</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-3">Veritabanı Adı</th>
+                    <th scope="col" class="col-7">Veritabanı Grubu</th>
+                    <th scope="col" class="col-2">Açıklama</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DatabaseDependencies)
+                {
+                    <tr class="d-flex">
+                        <td class="col-3">
+                            @item.Name
+                        </td>
+                        <td class="col-7">
+                            @item.DatabaseGroupName
+                        </td>
+                        <td class="col-2">
+                            @item.Description
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.HasExternalDependencies)
+    {
+        <div class="d-flex">
+            <h6>Harici Bağımlılıklar</h6>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.ExternalDependencies.Count bağımlılık</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-4">Bağımlılık Adı</th>
+                    <th scope="col" class="col-8">Açıklama</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ExternalDependencies)
+                {
+                    <tr class="d-flex">
+                        <td class="col-4">
+                            @item.Name
+                        </td>
+                        <td class="col-8">
+                            @item.Description
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @if (Model.HasNugetPackageDependencies)
+    {
+        <div class="d-flex">
+            <h6>Nuget Paketi Bağımlılıkları</h6>
+            <span class="badge-pill badge-light ml-3 mb-1">@Model.NugetPackageDependencies.Count paket</span>
+        </div>
+        <table class="table table-bordered table-striped" aria-hidden="true">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-4">Paket Adı</th>
+                    <th scope="col" class="col-8">Paket Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.NugetPackageDependencies)
+                {
+                    <tr class="d-flex">
+                        <td class="col-4">
+                            @item.NugetPackageName
+                        </td>
+                        <td class="col-8">
+                            <a href="@item.PackageUrl">@item.PackageUrl</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+</html>

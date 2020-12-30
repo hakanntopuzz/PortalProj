@@ -1,0 +1,53 @@
+﻿@model ApplicationJenkinsJobViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Jenkins Görev Bilgileri";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Jenkins Görev Bilgileri</h1>
+
+@Html.HiddenFor(x => x.ApplicationJenkinsJob.ApplicationId, new { name = "applicationId", id = "applicationId" })
+@Html.HiddenFor(x => x.ApplicationJenkinsJob.JenkinsJobId, new { name = "jenkinsJobId", id = "jenkinsJobId" })
+<input id="favouritePageName" type="hidden" value="@Model.FavouritePageName" />
+<input type="hidden" id="favouriteId" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>@Model.ApplicationJenkinsJob.ApplicationName</h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(ApplicationJenkinsJobControllerActionNames.Edit, ControllerNames.ApplicationJenkinsJob, new { id = Model.ApplicationJenkinsJob.JenkinsJobId })">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteAppJenkinsJob"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationJenkinsJob.RecordUpdateInfo.ModifiedDate - @Model.ApplicationJenkinsJob.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationJenkinsJob.RecordUpdateInfo.CreatedDate - @Model.ApplicationJenkinsJob.RecordUpdateInfo.CreatedUserEmail"><i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi</button>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush border-0">
+            <li class="list-group-item pl-0">
+                <strong>Görev Url : </strong>
+                <span><a href="@Model.JenkinsJobUrl@Model.ApplicationJenkinsJob.JenkinsJobName" target='_blank'>@Model.JenkinsJobUrl@Model.ApplicationJenkinsJob.JenkinsJobName</a></span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Görev Adı : </strong>
+                <span>@Model.ApplicationJenkinsJob.JenkinsJobName</span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Görev Tipi : </strong>
+                <span>@Model.ApplicationJenkinsJob.JenkinsJobTypeName</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@await Component.InvokeAsync("Audit", new { tableName = "JenkinsJob", recordId = Model.ApplicationJenkinsJob.JenkinsJobId })
+
+@section Scripts{
+    <script src="~/bundles/js/jenkinsJobDetail.min.js" asp-append-version="true"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,27 @@
+﻿@model BreadCrumbViewModel
+@{
+    Layout = null;
+}
+
+@if (Model != null)
+{
+
+    <nav aria-label="breadcrumb" class="my-2">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">@Model.ModuleName</li>
+
+            @foreach (var item in Model.PageList)
+            {
+                if (item.HasUrl)
+                {
+                    <li class="breadcrumb-item"><a href="@item.PageUrl">@item.PageName</a></li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">@item.PageName</li>
+                }
+            }
+        </ol>
+    </nav>
+}

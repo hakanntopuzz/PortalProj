@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputPath>bin\</OutputPath>
+    <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+    <Version>1.2.0.1478</Version>
+    <Configurations>Debug;Release</Configurations>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevPortal.Model\DevPortal.Model.csproj" />
+    <ProjectReference Include="..\Modules\DevPortal.Cryptography.Model\DevPortal.Cryptography.Model.csproj" />
+    <ProjectReference Include="..\Modules\DevPortal.JenkinsManager.Model\DevPortal.JenkinsManager.Model.csproj" />
+    <ProjectReference Include="..\Modules\DevPortal.NugetManager.Model\DevPortal.NugetManager.Model.csproj" />
+    <ProjectReference Include="..\Modules\DevPortal.SvnAdmin.Model\DevPortal.SvnAdmin.Model.csproj" />
+  </ItemGroup>
+</Project>

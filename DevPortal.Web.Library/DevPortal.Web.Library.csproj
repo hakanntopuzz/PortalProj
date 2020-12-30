@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <OutputPath>bin\</OutputPath>
+        <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+        <Version>1.2.0.1478</Version>
+        <Configurations>Debug;Release</Configurations>
+        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AB.Framework.Logger.Nlog.Abstract" Version="4.1.0" />
+        <PackageReference Include="FluentAssertions.AspNetCore.Mvc" Version="2.4.0" />
+        <PackageReference Include="jsreport.AspNetCore" Version="2.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DevPortal.Business.Abstract\DevPortal.Business.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Business\DevPortal.Business.csproj" />
+        <ProjectReference Include="..\DevPortal.Framework\DevPortal.Framework.csproj" />
+        <ProjectReference Include="..\DevPortal.Identity.Business.Abstract\DevPortal.Identity.Business.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Validation\DevPortal.Validation.csproj" />
+        <ProjectReference Include="..\DevPortal.Web.Library.Abstract\DevPortal.Web.Library.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Web.Library.Model\DevPortal.Web.Library.Model.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.Cryptography.Business.Abstract\DevPortal.Cryptography.Business.Abstract.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.JenkinsManager.Business.Abstract\DevPortal.JenkinsManager.Business.Abstract.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.JenkinsManager.Business\DevPortal.JenkinsManager.Business.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.JenkinsManager.Model\DevPortal.JenkinsManager.Model.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.Log.Business.Abstract\DevPortal.Log.Business.Abstract.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.NugetManager.Business.Abstract\DevPortal.NugetManager.Business.Abstract.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.NugetManager.Model\DevPortal.NugetManager.Model.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.SvnAdmin.Business.Abstract\DevPortal.SvnAdmin.Business.Abstract.csproj" />
+    </ItemGroup>
+</Project>

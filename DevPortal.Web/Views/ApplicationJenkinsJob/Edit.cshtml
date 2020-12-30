@@ -1,0 +1,58 @@
+﻿@model ApplicationJenkinsJobViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Jenkins Görevi Güncelleme";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Jenkins Görevi Güncelleme</h1>
+<div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+    <h3>@Model.ApplicationJenkinsJob.ApplicationName</h3>
+    <div class="mb-3 mb-lg-0">
+        <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationJenkinsJob.RecordUpdateInfo.ModifiedDate - @Model.ApplicationJenkinsJob.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationJenkinsJob.RecordUpdateInfo.CreatedDate - @Model.ApplicationJenkinsJob.RecordUpdateInfo.CreatedUserEmail">
+            <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        @using (Html.BeginForm(ApplicationJenkinsJobControllerActionNames.Edit, ControllerNames.ApplicationJenkinsJob, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.ApplicationJenkinsJob.ApplicationId, new { name = "applicationId", id = "applicationId" })
+            @Html.HiddenFor(x => x.ApplicationJenkinsJob.JenkinsJobId)
+
+            @if (Model.JenkinsJobTypeList.Count > 0)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(x => x.ApplicationJenkinsJob.JobUrl) <br />
+                    <span><a href="@Model.JenkinsJobUrl@Model.ApplicationJenkinsJob.JenkinsJobName" target='_blank'>@Model.JenkinsJobUrl@Model.ApplicationJenkinsJob.JenkinsJobName</a></span>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.ApplicationJenkinsJob.JenkinsJobName)
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            @Html.Label(null, Model.JenkinsJobUrl, new { @class = "input-group-text" })
+                        </div>
+                        @Html.TextBoxFor(x => x.ApplicationJenkinsJob.JenkinsJobName, new { @class = "form-control" })
+                        <button type="button" class="btn btn-white btn-sm" data-toggle="tooltip" data-html="true" title="mxkobi">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ApplicationJenkinsJob.JenkinsJobName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.ApplicationJenkinsJob.JenkinsJobTypeId)
+                    @Html.DropDownListFor(model => model.ApplicationJenkinsJob.JenkinsJobTypeId, new SelectList(Model.JenkinsJobTypeList, DropdownItemValue.Id, DropdownItemValue.Name), "Görev Tipi Seçiniz", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ApplicationJenkinsJob.JenkinsJobTypeId)
+                </div>
+                <div class="py-3">
+                    <button id="btnSaved" type="submit" class="btn btn-success">Güncelle</button>
+                </div>
+            }
+            else
+            {
+                <label class="text-danger">Düzenlenecek jenkins görev bilgisi yoktur.</label>
+            }
+        }
+    </div>
+</div>

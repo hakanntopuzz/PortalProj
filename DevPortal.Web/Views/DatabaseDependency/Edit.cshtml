@@ -1,0 +1,41 @@
+﻿@model DatabaseDependencyViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Veritabanı Bağımlılığı Güncelleme";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Veritabanı Bağımlılığı Güncelleme</h1>
+<div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+    <h3>@Model.DatabaseDependency.ApplicationName</h3>
+    <div class="mb-3 mb-lg-0">
+        <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.DatabaseDependency.RecordUpdateInfo.ModifiedDate - @Model.DatabaseDependency.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.DatabaseDependency.RecordUpdateInfo.CreatedDate - @Model.DatabaseDependency.RecordUpdateInfo.CreatedUserEmail">
+            <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+        </button>
+    </div>
+</div>
+@using (Html.BeginForm(DatabaseDependencyControllerActionNames.Edit, ControllerNames.DatabaseDependency, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.DatabaseDependency.Id);
+    @Html.HiddenFor(x => x.DatabaseDependency.DatabaseId);
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <strong>Veritabanı : </strong>
+                <span>@Model.DatabaseDependency.Name</span>
+            </div>
+            <div class="form-group">
+                <strong>Veritabanı Grubu : </strong>
+                <span>@Model.DatabaseDependency.DatabaseGroupName</span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.DatabaseDependency.Description, new { @class = "col-form-label" })
+                @Html.TextBoxFor(x => x.DatabaseDependency.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.DatabaseDependency.Description)
+            </div>
+            <div class="py-3">
+                <button type="submit" class="btn btn-success">Güncelle</button>
+            </div>
+        </div>
+    </div>
+}

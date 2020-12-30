@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Menu>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-middle d-xl-flex d-lg-flex justify-content-between align-items-center position-relative">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/devportal-logo.png" alt="dev portal logo" width="80" /></a>
+        <div class="nav-item-profile dropdown float-right">
+            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">@User.Identity.Name</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                @foreach (var item in Model.Where(x => x.Group == (int)MenuGroups.UserProfile))
+                {
+                    @foreach (var childMenu in item.Children)
+                    {
+                        <a class="dropdown-item" href="@childMenu.Link">
+                            @if (!string.IsNullOrEmpty(childMenu.Icon))
+                            {
+                                <i class="fa @childMenu.Icon" aria-hidden="true"></i>
+                            }
+                            @childMenu.Name
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+        <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="nav navbar-nav">
+                @foreach (var item in Model.Where(x => x.Group == (int)MenuGroups.Navbar))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            @item.Name
+                        </a>
+                        @if (item.HasChildren)
+                        {
+                            <div class="dropdown-menu" aria-labelledby="appsDropdown">
+                                @foreach (var childMenu in item.Children)
+                                {
+                                    <a class="dropdown-item" href="@childMenu.Link">
+                                        @if (!string.IsNullOrEmpty(childMenu.Icon))
+                                        {
+                                            <i class="fa @childMenu.Icon" aria-hidden="true"></i>
+                                        }
+                                        @childMenu.Name
+                                    </a>
+                                }
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,49 @@
+﻿@model FavouritePagesPartialViewModel
+
+<div class="d-flex justify-content-between align-items-center pb-3">
+    <span class="badge text-muted">@Model.FavouritePages.Count sayfa</span>
+</div>
+<table class="table table-hover">
+    <caption>Favori Sayfalarım Listesi</caption>
+    <thead>
+        <tr class="d-flex">
+            <th scope="col" class="col-7">Sayfa Adı / Url</th>
+            <th scope="col" class="col-3">Eklenme Tarihi</th>
+            <th scope="col" class="col-2"></th>
+        </tr>
+    </thead>
+    <tbody id="listWithHandle" class="list-group list-group-flush">
+        @if (Model.HasFavouritePages)
+        {
+            int rowIndex = 0;
+            @for (int i = 0; i < Model.FavouritePages.Count; i++)
+            {
+                var item = Model.FavouritePages.ElementAt<FavouritePage>(i);
+                <tr class="list-group-item d-flex p-0" id="item-@item.Id">
+                    <td class="col-7 d-flex flex-column">
+                        <span>
+                            @if (i < 10)
+                            {
+                                <i class="fa fa-home text-muted" aria-hidden="true"></i>
+                            }
+                            <a href="@item.PageUrl" target="_blank">@item.PageName</a>
+                        </span>
+                        <span>
+                            <a href="@item.PageUrl" target="_blank" class="small text-secondary">@item.PageUrl</a>
+                        </span>
+                    </td>
+                    <td class="col-3">@item.CreatedDateFormatted</td>
+                    <td class="col-2 text-center">
+                        <a href="#" class="btn handle"><i class="fa fa-arrows-alt text-dark" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0)" onclick="deleteFavouriteOnPage(@item.Id)" class="btn text-danger"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                rowIndex++;
+            }
+        }
+        else
+        {
+            <tr><td colspan="4">Kayıtlı favori sayfa yok.</td></tr>
+        }
+    </tbody>
+</table>

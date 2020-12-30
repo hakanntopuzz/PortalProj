@@ -1,0 +1,56 @@
+﻿@model ApplicationDependencyViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Uygulama Bağımlılığı Bilgileri";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Uygulama Bağımlılığı Bilgileri</h1>
+@Html.HiddenFor(x => x.ApplicationDependency.Id, new { name = "applicationDependencyId", id = "applicationDependencyId" })
+@Html.HiddenFor(x => x.ApplicationDependency.DependentApplicationId, new { name = "applicationId", id = "applicationId" })
+<input id="favouritePageName" type="hidden" value="@Model.FavouritePageName" />
+<input type="hidden" id="favouriteId" />
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <div>
+                <h3>@Model.ApplicationDependency.Name</h3>
+            </div>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(ApplicationDependencyControllerActionNames.Edit, ControllerNames.ApplicationDependency, new { id = Model.ApplicationDependency.Id })">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteApplicationDependency"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationDependency.RecordUpdateInfo.ModifiedDate - @Model.ApplicationDependency.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationDependency.RecordUpdateInfo.CreatedDate - @Model.ApplicationDependency.RecordUpdateInfo.CreatedUserEmail">
+                    <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+                </button>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item pl-0">
+                <strong>Uygulama : </strong>
+                <span>@Model.ApplicationDependency.ApplicationName</span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Uygulama Grubu : </strong>
+                <span>@Model.ApplicationDependency.ApplicationGroupName</span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Açıklama : </strong>
+                <span>@Model.ApplicationDependency.Description</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@await Component.InvokeAsync("Audit", new { tableName = "ApplicationDependency", recordId = Model.ApplicationDependency.Id })
+
+@section Scripts{
+    <script src="~/js/applicationDependencyDetail.js"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

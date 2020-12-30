@@ -1,0 +1,25 @@
+﻿@model FavouritePagesViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Favori Sayfalarım";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Favori Sayfalarım</h1>
+<div class="row flex-md-row flex-column-reverse">
+    <div class="col-md-9 col-12">
+        <div id="favouritesDiv">
+            @Html.Partial(PartialViewNames.List, Model.FavouritePagesPartialModel)
+        </div>
+    </div>
+    <aside class="col-md-3 col-12 mb-4 bg-white sticky-toc">
+        <partial name="@PartialViewNames.AccountSidebarMenu" />
+    </aside>
+</div>
+@section Scripts{
+    <script src="~/bundles/js/favourite.min.js"></script>
+    <script src="~/bundles/js/favouriteList.min.js" asp-append-version="true"></script>
+    @*TODO: Bundle kullanılmalı. Harici kaynaklar yerine proje içindeki dosyalar kullanılmalı.*@
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/bundles/js/sortable.min.js" asp-append-version="true"></script>
+}

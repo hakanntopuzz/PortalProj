@@ -1,0 +1,68 @@
+﻿@model EditApplicationViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Uygulama Güncelleme";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Uygulama Güncelleme</h1>
+
+<div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+    <h3>@Model.Application.Name</h3>
+    <div class="mb-3 mb-lg-0">
+        <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.Application.RecordUpdateInfo.ModifiedDate - @Model.Application.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.Application.RecordUpdateInfo.CreatedDate - @Model.Application.RecordUpdateInfo.CreatedUserEmail">
+            <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+            </button>
+    </div>
+</div>
+@using (Html.BeginForm(ApplicationControllerActionNames.Edit, ControllerNames.Application, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Application.Id)<div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(x => x.Application.ApplicationGroupId, new { @class = "col-form-label" })
+                @Html.DropDownListFor(m => m.Application.ApplicationGroupId, new SelectList(Model.ApplicationGroups, DropdownItemValue.Id, DropdownItemValue.Name), "Seçiniz", new { @class = "custom-select" })
+                @Html.ValidationMessageFor(x => x.Application.ApplicationGroupId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Application.ApplicationTypeId, new { @class = "col-form-label" })
+                @Html.DropDownListFor(x => x.Application.ApplicationTypeId, new SelectList(Model.ApplicationTypes, DropdownItemValue.Id, DropdownItemValue.Name), "Seçiniz", new { @class = "custom-select" })
+                @Html.ValidationMessageFor(m => m.Application.ApplicationTypeId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Application.Name, new { @class = "col-form-label" })
+                @Html.TextBoxFor(x => x.Application.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Application.Name)
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(x => x.Application.RedmineProjectName, new { @class = "col-form-label" })
+                <div class="position-relative">
+                    @Html.TextBoxFor(x => x.Application.RedmineProjectName, new { @class = "form-control" })
+                    <button type="button" class="btn btn-white btn-sm" data-toggle="tooltip" data-html="true" title="mx-kobi">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </button>
+                </div>
+                @Html.ValidationMessageFor(m => m.Application.RedmineProjectName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Application.StatusId, new { @class = "col-form-label" })
+                @Html.DropDownListFor(x => x.Application.StatusId, new SelectList(Model.ApplicationStatusList, DropdownItemValue.Id, DropdownItemValue.Name), "Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Application.StatusId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Application.Description, new { @class = "col-form-label" })
+                @Html.TextAreaFor(x => x.Application.Description, new { maxlength = 2000, @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Application.Description)
+            </div>
+        </div>
+        <div class="col-md-12 py-3">
+            <button type="submit" class="btn btn-success">Güncelle</button>
+        </div>
+    </div>
+
+}
+@section Scripts{
+    <script src="~/bundles/js/jquery-val.min.js" asp-append-version="true"></script>
+}

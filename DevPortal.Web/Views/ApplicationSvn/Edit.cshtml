@@ -1,0 +1,54 @@
+﻿@model ApplicationSvnViewModel
+@{
+    ViewData[ViewDataNames.Title] = "SVN Deposu Güncelleme";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">SVN Deposu Güncelleme</h1>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>@Model.ApplicationSvn.ApplicationName</h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationSvn.RecordUpdateInfo.ModifiedDate - @Model.ApplicationSvn.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationSvn.RecordUpdateInfo.CreatedDate - @Model.ApplicationSvn.RecordUpdateInfo.CreatedUserEmail">
+                    <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+                </button>
+            </div>
+        </div>
+        @using (Html.BeginForm(ApplicationSvnControllerActionNames.Edit, ControllerNames.ApplicationSvn, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.ApplicationSvn.Id, new { name = "id", id = "id" });
+            @Html.HiddenFor(x => x.ApplicationSvn.ApplicationId, new { name = "applicationId", id = "applicationId" })
+            <div class="form-group">
+                @Html.LabelFor(x => x.ApplicationSvn.SvnRepositoryUrl, new { @class = "col-form-label" })
+                <div>
+                    <a href="@Model.ApplicationSvn.SvnRepositoryUrl" target="_blank">@Model.ApplicationSvn.SvnRepositoryUrl</a>
+                </div>
+            </div>
+            <div class="form-group col-10 p-0">
+                @Html.LabelFor(x => x.ApplicationSvn.Name, new { @class = "col-form-label" })
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        @Html.Label(null, Model.ApplicationSvn.SvnUrl, new { @class = "input-group-text" })
+                    </div>
+                    @Html.TextBoxFor(x => x.ApplicationSvn.Name, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.ApplicationSvn.Name)
+            </div>
+            <div class="form-group col-10 p-0">
+                @Html.LabelFor(x => x.ApplicationSvn.SvnRepositoryTypeId, new { @class = "col-form-label" })
+                @Html.DropDownListFor(model => model.ApplicationSvn.SvnRepositoryTypeId, new SelectList(Model.SvnRepositoryTypeList, DropdownItemValue.Id, DropdownItemValue.Name), "Depo Tipi Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ApplicationSvn.SvnRepositoryTypeId)
+            </div>
+            <div class="py-3">
+                <button id="btnSaved" type="submit" class="btn btn-success">Güncelle</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/application.js"></script>
+}

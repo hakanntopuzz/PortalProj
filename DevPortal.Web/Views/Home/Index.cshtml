@@ -1,0 +1,352 @@
+﻿@model HomeViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Ana Sayfa";
+}
+<div class="row pt-5">
+    <div class="col-lg-4 col-md-6">
+        <div class="card p-3 my-1">
+            <div class="media">
+                <img class="align-self-start mr-3" src="~/img/apps-icon.png" title="Uygulama" alt="Uygulama İkon">
+                <div class="media-body">
+                    <h6>
+                        Uygulama grubu
+                        <a class="badge badge-light" target="_blank" asp-controller="@ControllerNames.ApplicationGroup"
+                           asp-action="@ApplicationGroupControllerActionNames.Index">@Model.ApplicationStats.ApplicationGroupCount</a>
+                    </h6>
+                    <h6>
+                        Uygulama
+                        <a class="badge badge-light" target="_blank" asp-controller="@ControllerNames.Application"
+                           asp-action="@ApplicationControllerActionNames.Index">@Model.ApplicationStats.ApplicationCount</a>
+                    </h6>
+                    <a class="badge badge-primary" data-toggle="collapse" href="#applicationButton" role="button"
+                       aria-expanded="false" aria-controls="applicationButton">
+                        <i class="fa fa-plus p-1" aria-hidden="true"></i>
+                    </a>
+                    <div class="collapse border-top pt-3" id="applicationButton">
+                        @foreach (var type in Model.ApplicationStats.ApplicationCountsByType)
+                        {
+                            <p><strong>@type.ApplicationCount</strong> @type.ApplicationTypeName</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card p-3 my-1">
+            <div class="media">
+                <img class="align-self-start mr-3" src="~/img/ab-logo.png" title="NuGet" alt="NuGet Logo" />
+                <div class="media-body">
+                    <h6>
+                        NuGet Paketi <span class="badge badge-light">@Model.ApplicationStats.NugetPackageCount</span>
+                    </h6>
+                    <h6>
+                        NuGet Paketi (Sunucu)
+                        <a class="badge badge-light" href="/nuget/packages" target="_blank">@Model.NugetPackagesStats.ActiveNugetPackagesCount</a> (<a class="badge badge-light" href="/nuget/packages" target="_blank">@Model.NugetPackagesStats.AllNugetPackagesCount</a> versiyon)
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card p-3 my-1">
+            <div class="media">
+                <img class="align-self-start mr-3" src="~/img/subversion-logo.png" title="Subversion"
+                     alt="Subversion Logo" />
+                <div class="media-body">
+                    <h6>
+                        SVN Deposu <span class="badge badge-light">@Model.ApplicationStats.SvnRepositoryCount</span>
+                    </h6>
+                    <h6>
+                        SVN Deposu (Sunucu)
+                        <a class="badge badge-light" target="_blank" asp-controller="@ControllerNames.SvnAdmin"
+                           asp-action="@SvnAdminControllerActionNames.Index">@Model.SvnRepositoryCount</a>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card p-3 my-1">
+            <div class="media">
+                <img class="align-self-start mr-3" src="~/img/jenkins-logo.png" title="Jenkins" alt="Jenkins Logo" />
+                <div class="media-body">
+                    <h6>
+                        <a href="@Model.JenkinsUrl" target="_blank">Jenkins Görevi</a> <span class="badge badge-light">@Model.ApplicationStats.JenkinsJobCount</span>
+                    </h6>
+                    <a class="badge badge-primary" data-toggle="collapse" href="#jenkinsButton" role="button"
+                       aria-expanded="false" aria-controls="jenkinsButton">
+                        <i class="fa fa-plus p-1" aria-hidden="true"></i>
+                    </a>
+                    <div class="collapse border-top pt-3" id="jenkinsButton">
+                        @foreach (var type in Model.ApplicationStats.JenkinsJobCountsByType)
+                        {
+                            <p><strong>@type.JobCount</strong> @type.JobTypeName</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card p-3 my-1">
+            <div class="media">
+                <img class="align-self-start mr-3" src="~/img/sonarqube-logo.png" title="SonarQube"
+                     alt="SonarQube Logo" />
+                <div class="media-body">
+                    <h6>
+                        <a href="@Model.SonarQubeUrl" target="_blank">SonarQube Projesi</a> <span class="badge badge-light">@Model.ApplicationStats.SonarQubeProjectCount</span>
+                    </h6>
+                    <a class="badge badge-primary" data-toggle="collapse" href="#sonarqubeButton" role="button"
+                       aria-expanded="false" aria-controls="sonarqubeButton"><i class="fa fa-plus p-1" aria-hidden="true"></i></a>
+                    <div class="collapse border-top pt-3" id="sonarqubeButton">
+                        @foreach (var type in Model.ApplicationStats.SonarQubeProjectCountsByType)
+                        {
+                            <p><strong>@type.ProjectCount</strong> @type.ProjectTypeName</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card p-3 my-1">
+            <div class="media">
+                <a href="@Model.RedmineUrl" target="_blank">
+                    <img class="align-self-start mr-3" src="~/img/redmine-logo.png" title="Redmine"
+                         alt="Redmine Logo" />
+                </a>
+                <div class="media-body">
+                    <h6>
+                        <a href="@Url.Action(RedmineControllerActionNames.Index, ControllerNames.Redmine)" target="_blank">Uygulama Redmine Projesi</a> <span class="badge badge-light">@Model.ApplicationStats.ApplicationRedmineProjectCount</span>
+                    </h6>
+                    <h6>
+                        <a href="@Url.Action(RedmineControllerActionNames.DatabaseProjects, ControllerNames.Redmine)" target="_blank">Veritabanı Redmine Projesi</a> <span class="badge badge-light">@Model.ApplicationStats.DatabaseRedmineProjectCount</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/favourites-icon.png" title="Favori Sayfalarım" alt="Favori Sayfalarım İkon" />
+            <div class="media-body">
+                <h6 id="favourite-pages" class="m-0"><a asp-controller="@ControllerNames.Favourites" asp-action="@FavouritesControllerActionNames.Index" target="_blank">Favori Sayfalarım</a></h6>
+            </div>
+        </div>
+        @if (Model.HasFavouritePages)
+        {
+            <table class="table table-bordered table-striped" aria-describedby="favourite-pages" aria-hidden="true">
+                <tbody class="list-group list-group-flush">
+                    @foreach (var favouritePage in Model.FavouritePages)
+                    {
+                        <tr class="list-group-item p-0">
+                            <td>
+                                <a href="@favouritePage.Url" target="_blank">@favouritePage.Text</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <span>Kayıtlı favori sayfa yok.</span>
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-6 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/apps-icon.png" title="Uygulamalar"
+                 alt="Uygulamalar İkon" />
+            <div class="media-body">
+                <h6 id="recently-updated-apps" class="m-0"><a asp-controller="@ControllerNames.Application" asp-action="@ApplicationControllerActionNames.Index" target="_blank">Son Güncellenen Uygulamalar</a></h6>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" aria-describedby="recently-updated-apps">
+            <thead>
+                <tr>
+                    <th scope="col">Uygulama Adı</th>
+                    <th scope="col">Durum</th>
+                    <th scope="col">Güncelleme</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LastUpdatedApplications)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.Name, ApplicationControllerActionNames.Detail,
+                            ControllerNames.Application, new { id = item.Id }, new { target = "_blank" })
+                        </td>
+                        <td>@item.Status</td>
+                        <td class="small">@item.ModifiedDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-6 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/ab-logo.png" title="NuGet" alt="NuGet Logo" />
+            <div class="media-body">
+                <h6 id="recently-updated-nuget-packages" class="m-0"><a asp-controller="@ControllerNames.Nuget" asp-action="@NugetControllerActionNames.Packages" target="_blank">Son Güncellenen Nuget Paketleri</a></h6>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" aria-describedby="recently-updated-nuget-packages">
+            <thead>
+                <tr>
+                    <th scope="col">Paket Adı</th>
+                    <th scope="col">Versiyon</th>
+                    <th scope="col">Güncelleme</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LastUpdatedNugetPackages)
+                {
+                    <tr>
+                        <td>
+                            <a href="@item.PackageUrl" target="_blank">@item.PackageName</a>
+                        </td>
+                        <td>@item.CurrentVersion</td>
+                        <td class="small">@item.LastUpdateDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/jenkins-logo.png" title="Jenkins"
+                 alt="Jenkins Logo" />
+            <div class="media-body">
+                <h6 id="jenkins-failed-tasks" class="m-0"><a asp-controller="@ControllerNames.Jenkins" asp-action="@JenkinsControllerActionNames.FailedJobs" target="_blank">Jenkins - Başarısız Görevler</a></h6>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" aria-describedby="jenkins-failed-tasks">
+            <thead>
+                <tr>
+                    <th scope="col">Görev</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.JenkinsFailedJobs)
+                {
+                    <tr>
+                        <td>
+                            <a href="@item.Url" target="_blank">
+                                @item.Name
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-6 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/subversion-logo.png" title="Subversion"
+                 alt="Subversion Logo" />
+            <div class="media-body">
+                <h6 id="recently-updated-svn-repository" class="m-0"><a asp-controller="@ControllerNames.SvnAdmin" asp-action="@SvnAdminControllerActionNames.Index" target="_blank">Son Güncellenen SVN Depoları</a></h6>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" aria-describedby="recently-updated-svn-repository">
+            <thead>
+                <tr>
+                    <th scope="col">Depo Adı</th>
+                    <th scope="col">Güncelleme</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LastUpdatedSvnRepositories.Value)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td class="small">@item.ModifiedDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/tools-icon.png" title="Araçlar" alt="Araçlar İkon" />
+            <div class="media-body">
+                <h6 id="tools" class="m-0">Araçlar</h6>
+            </div>
+        </div>
+        @if (Model.HasToolPages)
+        {
+            <table class="table table-bordered table-striped" aria-describedby="tools" aria-hidden="true">
+                <tbody>
+                    @foreach (var toolPage in Model.ToolPages)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@toolPage.Url" target="_blank">@toolPage.Text</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <span>Kayıtlı araç yok.</span>
+        }
+    </div>
+    <div class="col-lg-4 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/redmine-logo.png" title="Redmine"
+                 alt="Redmine Logo" />
+            <div class="media-body">
+                <h6 id="redmine-projects" class="m-0">Redmine - Projeler</h6>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" aria-describedby="redmine-projects" aria-hidden="true">
+            <tbody>
+                @foreach (var project in Model.RedmineProjects)
+                {
+                    <tr>
+                        <td>
+                            <a href="@project.Url" target="_blank">@project.Text</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-4 col-md-12 my-2">
+        <div class="media align-items-center mb-2">
+            <img class="img-small mr-3" src="~/img/redmine-logo.png" title="Redmine"
+                 alt="Redmine Logo" />
+            <div class="media-body">
+                <h6 id="redmine-shortcut" class="m-0">Redmine - Kısa yollar</h6>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" aria-describedby="redmine-shortcut" aria-hidden="true">
+            <tbody>
+                @foreach (var wikiPage in Model.RedmineWikiPages)
+                {
+                    <tr>
+                        <td>
+                            <a href="@wikiPage.Url" target="_blank">@wikiPage.Text</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

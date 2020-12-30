@@ -1,0 +1,79 @@
+﻿@model ApplicationGroupViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Uygulama Grubu Bilgileri";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<link rel="stylesheet" href="~/bundles/css/dataTable.css" asp-append-version="true" />
+<h1 class="title-primary display-4">Uygulama Grubu Bilgileri</h1>
+@Html.HiddenFor(x => x.ApplicationGroup.Id, new { name = "groupId", id = "groupId" })
+@Html.HiddenFor(x => x.ApplicationGroup.Name, new { name = "favouritePageName", id = "favouritePageName" })
+<input type="hidden" id="favouriteId" />
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>@Model.ApplicationGroup.Name</h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(ApplicationGroupControllerActionNames.Edit, ControllerNames.ApplicationGroup, new { id = Model.ApplicationGroup.Id })">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteAppGroup"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationGroup.RecordUpdateInfo.ModifiedDate - @Model.ApplicationGroup.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationGroup.RecordUpdateInfo.CreatedDate - @Model.ApplicationGroup.RecordUpdateInfo.CreatedUserEmail">
+                    <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+                </button>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item pl-0">
+                <strong>Durum : </strong>
+                <span>@Model.ApplicationGroup.StatusName</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col">
+        <span class="badge text-muted">@Model.ApplicationList.Count uygulama</span>
+        <table class="table table-bordered table-striped">
+            <caption class="hide">Uygulama Grubu Bilgileri Listesi</caption>
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-md-8 col-sm-6">Uygulama Adı</th>
+                    <th scope="col" class="col-md-2 col-sm-3">Durum</th>
+                    <th scope="col" class="col-md-2 col-sm-3">Son Güncelleme</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.HasApplications)
+                {
+                    @foreach (var item in Model.ApplicationList)
+                    {
+                        <tr class="d-flex">
+                            <td class="col-md-8 col-sm-6">@Html.ActionLink(item.Name, ApplicationControllerActionNames.Detail, ControllerNames.Application, new { id = item.Id })</td>
+                            <td class="col-md-2 col-sm-3">@item.Status</td>
+                            <td class="col-md-2 col-sm-3">@item.ModifiedDate.ToString("dd MMMM yyyy HH:mm")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="3">Uygulama grubuna bağlı uygulama bulunmuyor.</td></tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@await Component.InvokeAsync("Audit", new { tableName = "ApplicationGroup", recordId = Model.ApplicationGroup.Id })
+
+@section Scripts{
+    <script src="~/bundles/js/applicationGroup.min.js" asp-append-version="true"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

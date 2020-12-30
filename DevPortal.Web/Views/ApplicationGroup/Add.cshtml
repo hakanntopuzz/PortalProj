@@ -1,0 +1,27 @@
+﻿@model ApplicationGroupViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Yeni Uygulama Grubu";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Yeni Uygulama Grubu</h1>
+
+@using (Html.BeginForm(ApplicationGroupControllerActionNames.Add, ControllerNames.ApplicationGroup, FormMethod.Post, new { id = "application-group" }))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(x => x.ApplicationGroup.Name, new { @class = "col-form-label" })
+                @Html.TextBoxFor(x => x.ApplicationGroup.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ApplicationGroup.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.ApplicationGroup.StatusId, new { @class = "col-form-label" })
+                @Html.DropDownListFor(x => x.ApplicationGroup.StatusId, new SelectList(Model.Status, DropdownItemValue.Id, DropdownItemValue.Name), "Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ApplicationGroup.StatusId)
+            </div>
+            <div class="py-3">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+            </div>
+        </div>
+    </div>
+}

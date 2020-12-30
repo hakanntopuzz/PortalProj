@@ -1,0 +1,48 @@
+﻿@model ApplicationNugetPackageViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Uygulama Nuget Paketi";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Uygulama Nuget Paketi</h1>
+@Html.HiddenFor(x => x.ApplicationNugetPackage.ApplicationId, new { name = "applicationId", id = "applicationId" })
+@Html.HiddenFor(x => x.ApplicationNugetPackage.NugetPackageId, new { name = "packageId", id = "packageId" })
+<input id="favouritePageName" type="hidden" value="@Model.FavouritePageName" />
+<input type="hidden" id="favouriteId" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+            <h3>@Model.ApplicationNugetPackage.ApplicationName</h3>
+            <div class="mb-3 mb-lg-0">
+                <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+                <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+                @if (Model.IsAuthorized)
+                {
+                    <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(ApplicationNugetPackageControllerActionNames.Edit, ControllerNames.ApplicationNugetPackage, new { id = Model.ApplicationNugetPackage.NugetPackageId})">
+                        <i class="far fa-edit" aria-hidden="true"></i> @ButtonTextNames.Edit
+                    </a>
+                    <button class="btn btn-simple btn-sm hover-danger" id="deleteAppNugetPackage"><i class="fa fa-trash-alt" aria-hidden="true"></i> Sil</button>
+                    <button class="btn btn-simple btn-sm hover-info" id="showAudit"><i class="fa fa-history" aria-hidden="true"></i> Değişiklik Geçmişi</button>
+                }
+                <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationNugetPackage.RecordUpdateInfo.ModifiedDate - @Model.ApplicationNugetPackage.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationNugetPackage.RecordUpdateInfo.CreatedDate - @Model.ApplicationNugetPackage.RecordUpdateInfo.CreatedUserEmail"><i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi</button>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush border-0">
+            <li class="list-group-item pl-0">
+                <strong>Paket Adı : </strong>
+                <span>@Model.ApplicationNugetPackage.NugetPackageName</span>
+            </li>
+            <li class="list-group-item pl-0">
+                <strong>Paket Url : </strong>
+                <span><a href="@Model.NugetPackageUrl@Model.ApplicationNugetPackage.NugetPackageName" target='_blank'>@Model.NugetPackageUrl@Model.ApplicationNugetPackage.NugetPackageName</a></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@await Component.InvokeAsync("Audit", new { tableName = "ApplicationNugetPackage", recordId = Model.ApplicationNugetPackage.NugetPackageId })
+
+@section Scripts{
+    <script src="~/bundles/js/nugetPackageDetail.min.js" asp-append-version="true"></script>
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

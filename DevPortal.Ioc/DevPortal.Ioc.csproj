@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <OutputPath>bin\</OutputPath>
+        <AssemblyVersion>1.2.0.1478</AssemblyVersion>
+        <Version>1.2.0.1478</Version>
+        <Configurations>Debug;Release</Configurations>
+        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AB.Data.DapperClient.Ioc.Autofac" Version="5.2.0" />
+        <PackageReference Include="AB.Framework.Logger.Nlog.Ioc.Autofac" Version="4.1.0" />
+        <PackageReference Include="AB.Framework.Security.Ioc.Autofac" Version="2.1.0" />
+        <PackageReference Include="AB.Framework.SettingsReader.Ioc.Autofac" Version="4.0.0" />
+        <PackageReference Include="AB.Framework.TextTemplates.Ioc.Autofac" Version="1.0.1" />
+        <PackageReference Include="Autofac" Version="5.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DevPortal.Business.Abstract\DevPortal.Business.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Business\DevPortal.Business.csproj" />
+        <ProjectReference Include="..\DevPortal.Data\DevPortal.Data.csproj" />
+        <ProjectReference Include="..\DevPortal.Framework.Abstract\DevPortal.Framework.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Framework\DevPortal.Framework.csproj" />
+        <ProjectReference Include="..\DevPortal.Identity.Business\DevPortal.Identity.Business.csproj" />
+        <ProjectReference Include="..\DevPortal.Identity.Data\DevPortal.Identity.Data.csproj" />
+        <ProjectReference Include="..\DevPortal.Validation\DevPortal.Validation.csproj" />
+        <ProjectReference Include="..\DevPortal.Web.Library.Abstract\DevPortal.Web.Library.Abstract.csproj" />
+        <ProjectReference Include="..\DevPortal.Web.Library\DevPortal.Web.Library.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.Cryptography.Business\DevPortal.Cryptography.Business.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.Log.Business\DevPortal.Log.Business.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.NugetManager.Business\DevPortal.NugetManager.Business.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.SvnAdmin.Business\DevPortal.SvnAdmin.Business.csproj" />
+        <ProjectReference Include="..\Modules\DevPortal.SvnAdmin.Data\DevPortal.SvnAdmin.Data.csproj" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,42 @@
+{
+    "name": "nuget",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve --mode local",
+        "serve:dev": "vue-cli-service serve --mode development",
+        "test:unit": "vue-cli-service test:unit",
+        "lint": "vue-cli-service lint",
+        "build": "vue-cli-service build",
+        "build:dev": "vue-cli-service build --mode development & npm run postbuild",
+        "build:local": "vue-cli-service build --mode local & npm run postbuild",
+        "postbuild": "copy .\\utilities\\web.config .\\dist\\web.config & copy .\\utilities\\index.html .\\dist\\index.html & xcopy .\\utilities\\img .\\dist\\img /E /Y /I"
+    },
+    "dependencies": {
+        "axios": "^0.19.2",
+        "bootstrap": "^4.5.0",
+        "bootstrap-vue": "^2.15.0",
+        "core-js": "^3.6.5",
+        "vue": "^2.6.11",
+        "vue-loading-overlay": "^3.3.2",
+        "vue-moment": "^4.1.0",
+        "vue-router": "^3.3.4",
+        "vue-sweetalert2": "^3.0.6",
+        "vuex": "^3.5.1"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^4.4.6",
+        "@vue/cli-plugin-eslint": "^4.4.6",
+        "@vue/cli-plugin-router": "^4.4.6",
+        "@vue/cli-plugin-unit-jest": "^4.4.6",
+        "@vue/cli-plugin-vuex": "^4.4.6",
+        "@vue/cli-service": "^4.4.6",
+        "@vue/eslint-config-standard": "^4.0.0",
+        "@vue/test-utils": "1.0.0-beta.29",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^5.16.0",
+        "eslint-plugin-vue": "^5.0.0",
+        "vue-plugin-load-script": "^1.2.0",
+        "vue-template-compiler": "^2.6.10"
+    }
+}

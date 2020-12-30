@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\shared\ProfileMenu.test.js">
+        <testCase name="Profile Menu renders without crashing" duration="7"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\shared\Header.test.js">
+        <testCase name="Header renders without crashing" duration="10"/>
+        <testCase name="Header header component has dev portal logo" duration="99"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\buildScripts\Index.test.js">
+        <testCase name="Index renders when page loaded" duration="178"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\failedJobs\FailedJobsTable.test.js">
+        <testCase name="renders failed jobs table" duration="391"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\jobs\JobsTable.test.js">
+        <testCase name="renders jobs table" duration="362"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\jobs\JobList.test.js">
+        <testCase name="JobList renders job list on table when page loaded" duration="17"/>
+        <testCase name="JobList api returns error error section should appears on the screen" duration="8"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\failedJobs\FailedJobs.test.js">
+        <testCase name="FailedJobList renders failed job list on table when page loaded" duration="16"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\App.test.js">
+        <testCase name="navigates home start app" duration="35"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\shared\NavItem.test.js">
+        <testCase name="Header header component has a navigation menu" duration="18"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\jobDetail\HealthReport.test.js">
+        <testCase name="renders jenkins jobs health report" duration="15"/>
+        <testCase name="health report icon url is `health-00to19.png` and return image src is `images.HealthRainy`" duration="4"/>
+        <testCase name="health report icon url is `health-20to39.png` and return image src is `images.HealthMostlyCloudy`" duration="5"/>
+        <testCase name="health report icon url is `health-40to59.png` and return image src is `images.HealthCloudy`" duration="6"/>
+        <testCase name="health report icon url is `health-60to79.png` and return image src is `images.HealthPartlySunny`" duration="8"/>
+        <testCase name="health report icon url is `health-80plus.png` and return image src is `images.HealthSunny`" duration="4"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\jobDetail\BuildTable.test.js">
+        <testCase name="renders jenkins jobs build table" duration="53"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\jobDetail\JobDetail.test.js">
+        <testCase name="JobDetail renders job detail when page loaded" duration="6"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\components\shared\Footer.test.js">
+        <testCase name="Footer renders without crashing and includes `DevPortal`" duration="11"/>
+    </file>
+    <file path="D:\DEV\AB\dev-portal\trunk\src\DevPortal\DevPortal.Web\wwwroot\Modules\jenkins\src\__tests__\useFetch.test.js">
+        <testCase name="useFetch performs GET request" duration="18"/>
+        <testCase name="useFetch sets loading to false and returns inital value on network error" duration="3"/>
+    </file>
+</testExecutions>

@@ -1,0 +1,54 @@
+﻿@model DatabaseViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Yeni Veritabanı";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+<h1 class="title-primary display-4">Yeni Veritabanı</h1>
+
+@using (Html.BeginForm(DatabaseControllerActionNames.Add, ControllerNames.Database, FormMethod.Post, new { id = "application-form" }))
+{
+    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(x => x.Database.DatabaseGroupId, new { @class = "col-form-label" })
+            @Html.DropDownListFor(m => m.Database.DatabaseGroupId, new SelectList(Model.DatabaseGroups, DropdownItemValue.Id, DropdownItemValue.Name), "Seçiniz", new { @class = "custom-select" })
+            @Html.ValidationMessageFor(x => x.Database.DatabaseGroupId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Database.DatabaseTypeId, new { @class = "col-form-label" })
+            @Html.DropDownListFor(x => x.Database.DatabaseTypeId, new SelectList(Model.DatabaseTypes, DropdownItemValue.Id, DropdownItemValue.Name), "Seçiniz", new { @class = "custom-select" })
+            @Html.ValidationMessageFor(m => m.Database.DatabaseTypeId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Database.Name, new { @class = "col-form-label" })
+            @Html.TextBoxFor(x => x.Database.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Database.Name)
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(x => x.Database.RedmineProjectName, new { @class = "col-form-label" })
+            <div class="position-relative">
+                @Html.TextBoxFor(x => x.Database.RedmineProjectName, new { @class = "form-control" })
+                <button type="button" class="btn btn-white btn-sm" data-toggle="tooltip" data-html="true" title="mx-kobi">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </button>
+            </div>
+            @Html.ValidationMessageFor(m => m.Database.RedmineProjectName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Database.Description, new { @class = "col-form-label" })
+            @Html.TextAreaFor(x => x.Database.Description, new { maxlength = 2000, @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Database.Description)
+        </div>
+    </div>
+</div>
+    <div class="row col-md-12">
+        <button type="submit" class="btn btn-success">Kaydet</button>
+    </div>
+}
+
+@section Scripts{
+    <script src="~/bundles/js/jquery-val.min.js" asp-append-version="true"></script>
+}

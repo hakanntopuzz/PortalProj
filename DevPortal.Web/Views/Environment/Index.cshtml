@@ -1,0 +1,63 @@
+﻿@model EnvironmentViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Ortamlar";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Ortamlar</h1>
+<input type="hidden" id="favouritePageName" name="favouritePageName" value="Ortamlar" />
+<input type="hidden" id="favouriteId" />
+
+<div class="d-flex justify-content-between align-items-center pb-3">
+    <span class="badge text-muted">@Model.Environments.Count ortam</span>
+    <div>
+        @if (Model.IsAuthorized)
+        {
+            <a class="btn btn-simple btn-sm hover-success" href="@Url.Action(EnvironmentControllerActionNames.Add, ControllerNames.Environment)">
+                <i class="fa fa-plus" aria-hidden="true"></i> @ButtonTextNames.Add
+            </a>
+        }
+        <button class="btn btn-simple btn-sm hover-action" id="addFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerime Ekle</button>
+        <button class="btn btn-simple btn-sm hover-action active" id="deleteFavourite"><i class="fa fa-star" aria-hidden="true"></i> Favorilerimden Çıkar</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <caption class="hide">Ortam Listesi</caption>
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-md-5">Ortam Adı</th>
+                    <th scope="col" class="col-md-6">Son Güncelleme</th>
+                    <th scope="col" class="col-md-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.HasEnvironments)
+                {
+                    @foreach (var item in Model.Environments)
+                    {
+                        <tr class="d-flex">
+                            <td class="col-md-5">@item.Name</td>
+                            <td class="col-md-6">@item.RecordUpdateInfo.ModifiedDate</td>
+                            <td class="col-md-1 text-center">
+                                <a class='btn btn-link' type='button' data-toggle='tooltip' title='Detay' href="@Url.Action(EnvironmentControllerActionNames.Detail,ControllerNames.Environment,new { id=item.Id})">
+                                    <i class='far fa-eye' aria-hidden='true'></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4">Kayıtlı ortam yok</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/bundles/js/favourite.min.js" asp-append-version="true"></script>
+}

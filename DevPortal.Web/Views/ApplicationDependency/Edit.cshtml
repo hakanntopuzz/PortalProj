@@ -1,0 +1,41 @@
+﻿@model ApplicationDependencyViewModel
+@{
+    ViewData[ViewDataNames.Title] = "Uygulama Bağımlılığı Güncelleme";
+    ViewBag.BreadCrumb = Model.BreadCrumbViewModel;
+}
+
+<h1 class="title-primary display-4">Uygulama Bağımlılığı Güncelleme</h1>
+<div class="d-flex flex-lg-row flex-column-reverse justify-content-between">
+    <h3>@Model.ApplicationDependency.Name</h3>
+    <div class="mb-3 mb-lg-0">
+        <button class="btn btn-simple btn-sm hover-info" type="button" data-toggle="tooltip" data-placement="top" data-html="true" title="<b>Son güncelleme: </b>@Model.ApplicationDependency.RecordUpdateInfo.ModifiedDate - @Model.ApplicationDependency.RecordUpdateInfo.ModifiedUserEmail<br><b>Oluşturma: </b>@Model.ApplicationDependency.RecordUpdateInfo.CreatedDate - @Model.ApplicationDependency.RecordUpdateInfo.CreatedUserEmail">
+            <i class="far fa-clock" aria-hidden="true"></i> Tarih Bilgisi
+        </button>
+    </div>
+</div>
+@using (Html.BeginForm(ApplicationDependencyControllerActionNames.Edit, ControllerNames.ApplicationDependency, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.ApplicationDependency.Id);
+    @Html.HiddenFor(x => x.ApplicationDependency.DependedApplicationId);
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <strong>Uygulama : </strong>
+                <span>@Model.ApplicationDependency.Name</span>
+            </div>
+            <div class="form-group">
+                <strong>Uygulama Grubu : </strong>
+                <span>@Model.ApplicationDependency.ApplicationGroupName</span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.ApplicationDependency.Description, new { @class = "col-form-label" })
+                @Html.TextBoxFor(x => x.ApplicationDependency.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ApplicationDependency.Description)
+            </div>
+            <div class="py-3">
+                <button type="submit" class="btn btn-success">Güncelle</button>
+            </div>
+        </div>
+    </div>
+}

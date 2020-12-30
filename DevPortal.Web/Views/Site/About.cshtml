@@ -1,0 +1,523 @@
+﻿@{
+    ViewData[ViewDataNames.Title] = "Hakkında";
+}
+<h1 class="title-primary display-4">Hakkında</h1>
+<div class="jumbotron">
+    DevPortal uygulaması yazılım geliştirme, test ve kurulum süreçlerine yardımcı olacak ve / veya bu süreçlerin otomasyonunu sağlayacak araçları içerir.
+</div>
+<div class="container-middle my-4">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 my-2">
+            <div class="card card-body h-100">
+                <div class="media">
+                    <img class="mr-3" src="~/img/continuous-integration-icon.svg" alt="sürekli entegrasyon" height="64" />
+                    <div class="media-body">
+                        <h5>Sürekli Entegrasyon</h5>
+                        <p class="mb-0">Sürekli Entegrasyon sistemini destekleyici ve tamamlayıcı özelliklere sahiptir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 my-2">
+            <div class="card card-body h-100">
+                <div class="media">
+                    <img class="mr-3" src="~/img/automation-icon.svg" alt="otomasyon" height="64" />
+                    <div class="media-body">
+                        <h5>Otomasyon</h5>
+                        <p class="mb-0">Sürekli tekrarlanan manuel işlemleri otomatize etmeyi sağlar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 my-2">
+            <div class="card card-body h-100">
+                <div class="media">
+                    <img class="mr-3" src="~/img/information-management-icon.svg" alt="bilgi yönetimi" height="64" />
+                    <div class="media-body">
+                        <h5>Bilgi Yönetimi</h5>
+                        <p class="mb-0">Geliştirilen ve bakımı yapılan uygulamaların bilgilerini merkezileştirmeyi hedefler.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-middle bg-white shadow-lg rounded p-5 my-4">
+    <div class="media justify-content-between align-items-center border-bottom px-2 mb-3">
+        <h2 class="dependencies-title font-weight-light">v1.2</h2>
+        <span class="text-monospace text-muted">03.07.2020</span>
+    </div>
+    <pre class="text-doc">
+<strong>DevPortal</strong>
+<strong class="text-success">Yeni</strong> - Anasayfa araç sayfaları listesi
+<strong class="text-success">Yeni</strong> - Anasayfa Nuget Paketi istatistiklerine "Uygulama Nuget Paketi Adedi" bilgisinin eklenmesi
+<strong class="text-success">Yeni</strong> - Ana sayfa istatistiklerine "Redmine Projesi Adedi" bilgilerinin eklenmesi
+<strong class="text-warning">Değişiklik</strong> - Güncelleme işleminin yapıldığı tablolara Denetim (Audit) yapısının entegre edilmesi
+<strong class="text-warning">Değişiklik</strong> - Menü Grubu bilgisinin veritabanı tablosunun oluşturulması ve programatik olarak yönetilmesi
+<strong class="text-warning">Değişiklik</strong> - Kayıtlara ait meta bilgilerin gösteriminin yeniden tasarlanması
+<strong class="text-warning">Değişiklik</strong> - İşlem düğmelerinin yeniden tasarlanması
+<strong class="text-warning">Değişiklik</strong> - Arayüzün standartlaştırılması, kullanılabilirliğin arttırılması ve tasarımın geliştirilmesi
+<strong class="text-danger">Hata giderme</strong> - Yeni menü oluşturma işleminde menü grubu seçilmezse kayıt yapılmıyor ve bir hata oluştu mesajı gösteriliyor
+
+<strong>DevPortal - Uygulama Yönetimi</strong>
+<strong class="text-success">Yeni</strong> - Veritabanı oluşturma
+<strong class="text-success">Yeni</strong> - Veritabanı güncelleme
+<strong class="text-success">Yeni</strong> - Veritabanı görüntüleme
+<strong class="text-success">Yeni</strong> - Veritabanı listeleme
+<strong class="text-success">Yeni</strong> - Veritabanı silme
+<strong class="text-success">Yeni</strong> - Veritabanı listesi dışa aktarma (csv)
+<strong class="text-success">Yeni</strong> - Veritabanı listesi dışa aktarma (wiki)
+<strong class="text-success">Yeni</strong> - Veritabanı grubu oluşturma
+<strong class="text-success">Yeni</strong> - Veritabanı grubu güncelleme
+<strong class="text-success">Yeni</strong> - Veritabanı grubu görüntüleme
+<strong class="text-success">Yeni</strong> - Veritabanı grubu listeleme
+<strong class="text-success">Yeni</strong> - Veritabanı grubu silme
+<strong class="text-success">Yeni</strong> - Veritabanı tipi oluşturma
+<strong class="text-success">Yeni</strong> - Veritabanı tipi güncelleme
+<strong class="text-success">Yeni</strong> - Veritabanı tipi görüntüleme
+<strong class="text-success">Yeni</strong> - Veritabanı tipi listeleme
+<strong class="text-success">Yeni</strong> - Veritabanı tipi silme
+<strong class="text-success">Yeni</strong> - Uygulama bağımlılığı tipi oluşturma
+<strong class="text-success">Yeni</strong> - Uygulama bağımlılığı tipi güncelleme
+<strong class="text-success">Yeni</strong> - Uygulama bağımlılığı tipi görüntüleme
+<strong class="text-success">Yeni</strong> - Uygulama bağımlılığı tipi listeleme
+<strong class="text-success">Yeni</strong> - Uygulama bağımlılığı tipi silme
+<strong class="text-success">Yeni</strong> - Veritabanı bağımlılığı oluşturma
+<strong class="text-success">Yeni</strong> - Veritabanı bağımlılığı güncelleme
+<strong class="text-success">Yeni</strong> - Veritabanı bağımlılığı görüntüleme
+<strong class="text-success">Yeni</strong> - Veritabanı bağımlılığı listeleme
+<strong class="text-success">Yeni</strong> - Veritabanı bağımlılığı silme
+<strong class="text-success">Yeni</strong> - Harici bağımlılık oluşturma
+<strong class="text-success">Yeni</strong> - Harici bağımlılık güncelleme
+<strong class="text-success">Yeni</strong> - Harici bağımlılık görüntüleme
+<strong class="text-success">Yeni</strong> - Harici bağımlılık listeleme
+<strong class="text-success">Yeni</strong> - Harici bağımlılık silme
+<strong class="text-success">Yeni</strong> - Bağımlılık listesi dışa aktarma (csv)
+<strong class="text-success">Yeni</strong> - Bağımlılık listesi dışa aktarma (wiki)
+<strong class="text-success">Yeni</strong> - Uygulama listesini dışa aktarma (wiki)
+<strong class="text-warning">Değişiklik</strong> - Uygulama bilgileri dışa aktarma dosyasının adının değiştirilmesi
+<strong class="text-danger">Hata giderme</strong> - Uygulama nuget paketi adı bilgisi 5 karakterden az girişe izin vermiyor
+<strong class="text-danger">Hata giderme</strong> - Nuget tipindeki uygulama bilgileri dışarı aktarılırken uygulama ortam listesi bilgisi de dışa aktarılıyor
+<strong class="text-danger">Hata giderme</strong> - Uygulama bilgileri dışarı aktarılırken oluşturulan pdf dosyasında svn depo listesinde Svn Depo Url bilgisi hatalı oluşturuluyor
+
+<strong>DevPortal - Kullanıcı Yönetimi</strong>
+<strong class="text-success">Yeni</strong> - Favori sayfa listesi
+<strong class="text-success">Yeni</strong> - Favori sayfalara ekleme
+<strong class="text-success">Yeni</strong> - Favori sayfalardan çıkarma
+<strong class="text-success">Yeni</strong> - Favori sayfa listesinden favori sayfa silme
+<strong class="text-success">Yeni</strong> - Favori sayfaları sıralama
+<strong class="text-success">Yeni</strong> - Anasayfa favori sayfa listesi
+
+<strong>NuGet Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Nuget paketi emekliye ayırma
+<strong class="text-success">Yeni</strong> - Emekli Nuget paketini yeniden yayına alma
+<strong class="text-danger">Hata giderme</strong> - Olmayan paket bilgileri görüntülemeye çalışıldığında "Paket bulunamadı" mesajının gösterilmesi
+
+<strong>Jenkins Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Uygulama derleme scripti oluşturma
+<strong class="text-danger">Hata giderme</strong> - Jenkins görevleri dışa aktarma işlevinde tüm görevler dışa aktarılmıyor
+
+<strong>SVN Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Svn deposu oluşturma
+<strong class="text-success">Yeni</strong> - Svn depo listesini dışa aktarma (wiki)
+
+<strong>Log Yöneticisi</strong>
+<strong class="text-warning">Değişiklik</strong> - Log Listesindeki uygulama seçiminde "NuGet Paketi" tipindeki uygulamaların listelenmemesinin sağlanması
+
+<strong>Redmine Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Uygulama redmine proje listesi
+<strong class="text-success">Yeni</strong> - Veritabanı redmine proje listesi
+<strong class="text-success">Yeni</strong> - Redmine projesi SVN deposu güncelleme
+
+<strong>Katkıda Bulunanlar (r1478)</strong>
+
+430 commit
+
+vgoze (88)
+ueras (69)
+cem.kaya (69)
+cansu.tosun (43)
+sena.sahin (42)
+aysenur.avsar (38)
+rusen.tezelci (32)
+hakan.topuz (18)
+ncyeten (17)
+cokkali (8)
+ilhan.oztozlu (4)
+hgunes (2)
+</pre>
+</div>
+<div class="container-middle rounded p-5 my-4">
+    <div id="accordion">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-5 col-12 my-1">
+                <div class="card">
+                    <div class="card-header version py-2 px-3" data-toggle="collapse" data-target="#v1-1" aria-expanded="false" aria-controls="v1-1">
+                        <h2 class="dependencies-title font-weight-light">
+                            v1.1
+                        </h2>
+                        <span class="text-monospace text-muted pb-1">08.06.2020</span>
+                    </div>
+                    <div class="border-top py-2">
+                        <span class="col-4"><span class="badge badge-success" title="Yeni">12</span></span>
+                        <span class="col-4"><span class="badge badge-warning text-white" title="Değişiklik">14</span></span>
+                        <span class="col-4"><span class="badge badge-danger" title="Hata giderme">1</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5 col-12 my-1">
+                <div class="card">
+                    <div class="card-header version py-2 px-3" data-toggle="collapse" data-target="#v1-0" aria-expanded="false" aria-controls="v1-0">
+                        <h2 class="dependencies-title font-weight-light">
+                            v1.0
+                        </h2>
+                        <span class="text-monospace text-muted pb-1">08.05.2020</span>
+                    </div>
+                    <div class="border-top py-2">
+                        <span class="col-4"><span class="badge badge-success" title="Yeni">20</span></span>
+                        <span class="col-4"><span class="badge badge-warning text-white" title="Değişiklik">2</span></span>
+                        <span class="col-4"><span class="badge badge-danger" title="Hata giderme">0</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5 col-12 my-1">
+                <div class="card">
+                    <div class="card-header version py-2 px-3" data-toggle="collapse" data-target="#v04" aria-expanded="false" aria-controls="v04">
+                        <h2 class="dependencies-title font-weight-light">
+                            v0.4
+                        </h2>
+                        <span class="text-monospace text-muted pb-1">08.04.2020</span>
+                    </div>
+                    <div class="border-top py-2">
+                        <span class="col-4"><span class="badge badge-success" title="Yeni">2</span></span>
+                        <span class="col-4"><span class="badge badge-warning text-white" title="Değişiklik">4</span></span>
+                        <span class="col-4"><span class="badge badge-danger" title="Hata giderme">3</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5 col-12 my-1">
+                <div class="card">
+                    <div class="card-header version py-2 px-3" data-toggle="collapse" data-target="#v03" aria-expanded="false" aria-controls="v03">
+                        <h2 class="dependencies-title font-weight-light">
+                            v0.3
+                        </h2>
+                        <span class="text-monospace text-muted pb-1">24.03.2020</span>
+                    </div>
+                    <div class="border-top py-2">
+                        <span class="col-4"><span class="badge badge-success" title="Yeni">23</span></span>
+                        <span class="col-4"><span class="badge badge-warning text-white" title="Değişiklik">5</span></span>
+                        <span class="col-4"><span class="badge badge-danger" title="Hata giderme">3</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5 col-12 my-1">
+                <div class="card">
+                    <div class="card-header version py-2 px-3" data-toggle="collapse" data-target="#v02" aria-expanded="false" aria-controls="v02">
+                        <h2 class="dependencies-title font-weight-light">
+                            v0.2
+                        </h2>
+                        <span class="text-monospace text-muted pb-1">26.02.2020</span>
+                    </div>
+                    <div class="border-top py-2">
+                        <span class="col-4"><span class="badge badge-success" title="Yeni">11</span></span>
+                        <span class="col-4"><span class="badge badge-warning text-white" title="Değişiklik">5</span></span>
+                        <span class="col-4"><span class="badge badge-danger" title="Hata giderme">0</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5 col-12 my-1">
+                <div class="card">
+                    <div class="card-header version py-2 px-3" data-toggle="collapse" data-target="#v01" aria-expanded="false" aria-controls="v01">
+                        <h2 class="dependencies-title font-weight-light">
+                            v0.1
+                        </h2>
+                        <span class="text-monospace text-muted pb-1">13.01.2020</span>
+                    </div>
+                    <div class="border-top py-2">
+                        <span class="col-4"><span class="badge badge-success" title="Yeni">5</span></span>
+                        <span class="col-4"><span class="badge badge-warning text-white" title="Değişiklik">0</span></span>
+                        <span class="col-4"><span class="badge badge-danger" title="Hata giderme">0</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse pt-2" id="v1-1" data-parent="#accordion">
+<pre class="text-doc">
+<strong>DevPortal</strong>
+<strong class="text-warning">Değişiklik</strong> - Url bilgilerinin küçük harfe çevrilmesi
+<strong class="text-warning">Değişiklik</strong> - Değişiklik Geçmişi kayıtlarının güncelleme tarihine göre gruplanması
+<strong class="text-warning">Değişiklik</strong> - Genel ayarlar güncelleme logu işlevinin kaldırılması
+<strong class="text-warning">Değişiklik</strong> - Menü tablosuna Group ve Icon alanının eklenmesi ve menü gruplarının belirlenmesi
+<strong class="text-warning">Değişiklik</strong> - Bootstrap v4 taslak html sayfaları üretilmesi (datatable)
+<strong class="text-warning">Değişiklik</strong> - Arayüzün standartlaştırılması ve kullanılabilirliğin arttırılması
+
+<strong>DevPortal - Uygulama Yönetimi</strong>
+<strong class="text-success">Yeni</strong> - Uygulama nuget paketi listesi
+<strong class="text-success">Yeni</strong> - Uygulama nuget paketi görüntüleme
+<strong class="text-success">Yeni</strong> - Uygulama nuget paketi oluşturma
+<strong class="text-success">Yeni</strong> - Uygulama nuget paketi güncelleme
+<strong class="text-success">Yeni</strong> - Uygulama nuget paketi silme
+<strong class="text-success">Yeni</strong> - Ortam listesi
+<strong class="text-success">Yeni</strong> - Ortam görüntüleme
+<strong class="text-success">Yeni</strong> - Ortam oluşturma
+<strong class="text-success">Yeni</strong> - Ortam güncelleme
+<strong class="text-success">Yeni</strong> - Ortam silme
+<strong class="text-success">Yeni</strong> - Uygulama bilgilerinin dışa aktarılması
+<strong class="text-warning">Değişiklik</strong> - Uygulama SVN Açıklaması alanı yerine SVN Depo Tipi bilgisinin kullanılması
+<strong class="text-warning">Değişiklik</strong> - Uygulama meta bilgilerinin tamamlanması
+<strong class="text-warning">Değişiklik</strong> - Güncelleme ve Silme işlemlerinin yapıldığı tablolara Denetim (Audit) yapısının entegre edilmesi (Uygulama grubu güncelleme, Jenkins görevi güncelleme)
+
+<strong>DevPortal - Kullanıcı Yönetimi</strong>
+<strong class="text-warning">Değişiklik</strong> - Kullanıcı meta bilgilerinin tamamlanması
+<strong class="text-warning">Değişiklik</strong> - Kullanıcı bilgilerinde SVN Kullanıcı adının zorunlu olmaktan çıkarılması
+
+<strong>NuGet Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Net Framework nuspec şablonu
+<strong class="text-success">Yeni</strong> - .Net Standard & .Net Framework nuspec şablonu
+<strong class="text-warning">Değişiklik</strong> - Kullanıcı profili menüsünün dinamik olarak gösterilmesi
+
+<strong>Jenkins Yöneticisi</strong>
+<strong class="text-warning">Değişiklik</strong> - Jenkins görev listesi ve görev detayı gösterilirken uygulamaların jenkins görevleriyle eşleştirilmesi yapılarak ilgili uygulamaya link verilmesi
+<strong class="text-warning">Değişiklik</strong> - Kullanıcı profili menüsünün dinamik olarak gösterilmesi
+
+<strong>Log Yöneticisi</strong>
+<strong class="text-danger">Hata giderme</strong>  - Log listesinin ilk açılışta tarihe göre sondan başa doğru sıralanmasının sağlanması (Firefox)
+
+<strong>Katkıda Bulunanlar (r1044)</strong>
+
+204 commit
+
+vgoze (52)
+ueras (31)
+cem.kaya (28)
+rusen.tezelci (28)
+hakan.topuz (22)
+cansu.tosun (20)
+cokkali (10)
+sena.sahin (7)
+aysenur.avsar (4)
+hgunes (2)
+</pre>
+        </div>
+        <div class="collapse pt-2" id="v1-0" data-parent="#accordion">
+<pre class="text-doc">
+<strong>DevPortal</strong>
+<strong class="text-success">Yeni</strong> - Güncelleme ve Silme işlemlerinin yapıldığı tablolara Denetim (Audit) yapısının entegre edilmesi (Uygulama, Menü, Genel ayarlar)
+<strong class="text-warning">Değişiklik</strong> - Arayüzün standartlaştırılması
+<strong class="text-warning">Değişiklik</strong> - Bootstrap v4 taslak html sayfaları üretilmesi
+
+<strong>DevPortal - Kullanıcı Yönetimi</strong>
+<strong class="text-success">Yeni</strong> - Kullanıcı oturumu açma
+<strong class="text-success">Yeni</strong> - Kullanıcı oturumu kapama
+<strong class="text-success">Yeni</strong> - Kullanıcı bilgilerini görüntüleme
+<strong class="text-success">Yeni</strong> - Kullanıcı bilgilerini güncelleme
+<strong class="text-success">Yeni</strong> - Parola değiştirme
+<strong class="text-success">Yeni</strong> - Parolamı unuttum
+<strong class="text-success">Yeni</strong> - Kullanıcı oturum ve yetki kontrolünün mevcut işlevlerde uygulanması
+<strong class="text-success">Yeni</strong> - Kullanıcı listesi
+<strong class="text-success">Yeni</strong> - Kullanıcı bilgileri görüntüleme
+<strong class="text-success">Yeni</strong> - Kullanıcı oluşturma
+<strong class="text-success">Yeni</strong> - Kullanıcı güncelleme
+<strong class="text-success">Yeni</strong> - Kullanıcı silme
+
+<strong>Jenkins Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Jenkins görevlerinin listelenmesi
+<strong class="text-success">Yeni</strong> - Jenkins görev listesinin CSV formatında dışa aktarılması
+<strong class="text-success">Yeni</strong> - Jenkins başarısız görevlerin listelenmesi
+<strong class="text-success">Yeni</strong> - Jenkins başarısız görev listesinin CSV formatında dışa aktarılması
+<strong class="text-success">Yeni</strong> - Jenkins görev detayının görüntülenmesi
+
+<strong>NuGet Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - nuspec şablonu indirme işlevinin geliştirilmesi
+<strong class="text-success">Yeni</strong> - NuGet paketi listesinin CSV formatında dışa aktarılması
+
+<strong>Katkıda Bulunanlar (r838)</strong>
+
+192 commit
+
+cansu.tosun (51)
+ueras (35)
+hakan.topuz (31)
+cokkali (16)
+vgoze (16)
+rusen.tezelci (15)
+sena.sahin (13)
+cem.kaya (9)
+aysenur.avsar (4)
+hgunes (2)
+</pre>
+        </div>
+
+        <div class="collapse pt-2" id="v04" data-parent="#accordion">
+<pre class="text-doc">
+<strong>DevPortal</strong>
+<strong class="text-warning">Değişiklik</strong> - Ana sayfa istatistik bilgilerinin tekil verilerden hesaplanması
+<strong class="text-danger">Hata giderme</strong> - Ana sayfada jenkins görevlerine erişim sağlanamadığında 500 hatası gösteriliyor
+
+<strong>Uygulama Yönetimi</strong>
+<strong class="text-warning">Değişiklik</strong> - Yeni uygulama grubu oluşturulduktan sonra uygulama grubu bilgi sayfasına yönlendirme
+<strong class="text-warning">Değişiklik</strong> - Yeni uygulama oluşturulduktan sonra uygulama bilgi sayfasına yönlendirme
+<strong class="text-danger">Hata giderme</strong>  - Uygulama ortam bilgisinde Url bilgisi boş ise null metniyle link oluşturuluyor
+
+<strong>NuGet Yöneticisi</strong>
+<strong class="text-warning">Değişiklik</strong> - AB Kütüphaneleri arşiv dizini ayarının Genel Ayarlardan yönetilmesi
+
+<strong>Log Yöneticisi</strong>
+<strong class="text-danger">Hata giderme</strong> - Log dosyası yolu bilgisi boş olan uygulama ortamı için düzenleme sayfasına geçildiğinde hata sayfası gösteriliyor
+
+<strong>Güvenlik</strong>
+<strong class="text-success">Yeni</strong> - GUID oluşturma işlevinin geliştirilmesi
+<strong class="text-success">Yeni</strong> - Parola oluşturma işlevinin geliştirilmesi
+
+<strong>Katkıda Bulunanlar (r648)</strong>
+
+57 commit
+
+cansu.tosun (12)
+hakan.topuz (11)
+cem.kaya (8)
+vgoze (8)
+rusen.tezelci (5)
+sena.sahin (5)
+ueras (5)
+aysenur.avsar (1)
+cokkali (1)
+hgunes (1)
+</pre>
+        </div>
+        <div class="collapse pt-2" id="v03" data-parent="#accordion">
+            <pre class="text-doc">
+<strong>DevPortal</strong>
+<strong class="text-success">Yeni</strong> - Ana sayfanın geliştirilmesi
+<strong class="text-success">Yeni</strong> - Hata sayfalarının geliştirilmesi
+<strong class="text-success">Yeni</strong> - Navigasyon menüsü elemanlarının data olarak sağlanması ve DevPortal uygulaması ve NuGet Modülüne entegre edilmesi
+<strong class="text-success">Yeni</strong> - Menü yönetimi işlevleri
+<strong class="text-success">Yeni</strong> - DevPortal logosunun tasarlanması
+<strong class="text-success">Yeni</strong> - Bootstrap v4 taslak html sayfaları (Tablo)
+
+<strong>Uygulama Yönetimi</strong>
+<strong class="text-success">Yeni</strong> - Uygulama listesi dışa aktarma (CSV)
+<strong class="text-success">Yeni</strong> - Uygulama silme
+<strong class="text-success">Yeni</strong> - Uygulama grubu silme
+<strong class="text-success">Yeni</strong> - Uygulama jenkins görevi görüntüleme, oluşturma, güncelleme, silme
+<strong class="text-success">Yeni</strong> - Uygulama svn deposu görüntüleme, oluşturma, güncelleme, silme
+<strong class="text-success">Yeni</strong> - Uygulama sonarqube projeleri listesi, proje görüntüleme, oluşturma, güncelleme, silme
+<strong class="text-success">Yeni</strong> - Uygulama grubu görüntüleme sayfasında gruba bağlı uygulamaları listeleme
+<strong class="text-warning">Değişiklik</strong> - Uygulama ve ilişkili varlıklara Silinmiş mi bilgisinin eklenmesi
+<strong class="text-warning">Değişiklik</strong> - Uygulama ortamı log bilgisinden log listesine link verilmesi
+<strong class="text-warning">Değişiklik</strong> - Uygulama ortamı Url bilgisinin zorunluluğunun kaldırılması
+<strong class="text-warning">Değişiklik</strong> - Formlara format belirten placeholderlar eklenmesi
+<strong class="text-warning">Değişiklik</strong> - Kayıtlı bir uygulamanın adıyla uygulama oluşturma ve güncelleme işleminin engellenmesi
+<strong class="text-danger">Hata giderme</strong> - Uygulama bilgileri sayfasında son güncelleme tarihi gösterilmiyor
+<strong class="text-danger">Hata giderme</strong> - Uygulama grubu seçilmeden uygulama adıyla arama yapılamıyor
+<strong class="text-danger">Hata giderme</strong> - Uygulama bilgileri yeni ortam düğmesi svn deposu ve jenkins görevi sekmelerinde de görünmeye devam ediyor
+
+<strong>NuGet Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Nuget paketlerinin ikonlarının gösterilmesi
+<strong class="text-success">Yeni</strong> - Nuget arşiv paketleri listesi
+<strong class="text-success">Yeni</strong> - Nuget paket arşivinden paket indirme
+<strong class="text-success">Yeni</strong> - Nuget paket bilgilerinde arşiv durumunun gösterilmesi
+<strong class="text-success">Yeni</strong> - Nuget paketleri detay sayfasında paketi arşive ekleme
+
+<strong>Log Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Log dosyası görüntüleme sayfasında okunabilirliğin arttırılması - Error loglarının kırmızı olarak renklendirilmesi
+<strong class="text-success">Yeni</strong> - Uygulama ortamı log dizini sağlayarak log bilgisi görüntüleme
+
+<strong>SVN Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Svn depolarının listelenmesi
+<strong class="text-success">Yeni</strong> - Svn depo listesinin dışa aktarılması
+
+<strong>Jenkins Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Jenkins görevlerinin listelenmesi
+
+<strong>Katkıda Bulunanlar</strong>
+
+256 commit
+
+vgoze (55)
+rusen.tezelci (37)
+ueras (30)
+cokkali (27)
+aysenur.avsar (26)
+cem.kaya (23)
+ilhan.oztozlu (17)
+cansu.tosun (15)
+hgunes (12)
+hakan.topuz (7)
+sena.sahin (7)
+</pre>
+        </div>
+        <div class="collapse pt-2" id="v02" data-parent="#accordion">
+<pre class="text-doc">
+<strong>DevPortal</strong>
+<strong class="text-success">Yeni</strong> - Genel ayarlar
+<strong class="text-success">Yeni</strong> - Sayfalara breadcrumb eklenmesi
+<strong class="text-warning">Değişiklik</strong> - Javascript dosyalarının bundle ile kullanılması
+<strong class="text-warning">Değişiklik</strong> - AB.Data.ApiClient, AB.Framework.SettingsReader, AB.Framework.Logger.Nlog paketleri entegrasyonu
+
+<strong>Uygulama Yönetimi</strong>
+<strong class="text-success">Yeni</strong> - Uygulama grubu listesi, yeni uygulama grubu oluşturma, uygulama grubu güncelleme
+<strong class="text-success">Yeni</strong> - Uygulama listesi, uygulama bilgileri görüntüleme, uygulama bilgileri güncelleme, yeni uygulama oluşturma
+<strong class="text-success">Yeni</strong> - Uygulama ortamı görüntüleme, uygulama ortamı güncelleme, uygulama ortamı silme, yeni uygulama ortamı oluşturma
+<strong class="text-success">Yeni</strong> - Uygulama svn deposu listesi, uygulama Jenkins görevi listesi, uygulama ortamı listesi
+
+<strong>NuGet Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - NuGet Yöneticisi Modülü oluşturuldu (vue.js altyapısı ile)
+<strong class="text-success">Yeni</strong> - Nuget paket listesi
+<strong class="text-success">Yeni</strong> - Nuget paket bilgileri görüntüleme
+
+<strong>Güvenlik</strong>
+<strong class="text-success">Yeni</strong> - SHA1 ve SHA512 ile hashleme
+<strong class="text-warning">Değişiklik</strong> - Güvenlik işlemleri sayfaları türkçeleştirme
+<strong class="text-warning">Değişiklik</strong> - AES encryption / decryption, hash işlevleri AB.Framework.Security paketi ile gerçekleştirilmesi
+
+<strong>Log Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Uygulama log arşivi dosyalarını listeleme
+<strong class="text-warning">Değişiklik</strong> - Log dosyası görüntüleme sayfasında okunabilirliğin arttırılması
+
+<strong>Katkıda Bulunanlar</strong>
+
+261 commit
+
+vgoze (42)
+rusen.tezelci (34)
+cokkali (32)
+ueras (30)
+aysenur.avsar (23)
+cem.kaya (22)
+sena.sahin (20)
+hgunes (18)
+hakan.topuz (11)
+cansu.tosun (10)
+ncyeten (10)
+ilhan.oztozlu (9)
+</pre>
+        </div>
+        <div class="collapse pt-2" id="v01" data-parent="#accordion">
+<pre class="text-doc">
+<strong>Güvenlik</strong>
+<strong class="text-success">Yeni</strong> - Cryptography.dll v1 ve v2 işlevleri
+<strong class="text-success">Yeni</strong> - AES encryption / decryption
+
+<strong>Log Yöneticisi</strong>
+<strong class="text-success">Yeni</strong> - Log dosyalarını listeleme
+<strong class="text-success">Yeni</strong> - Log dosyasını görüntüleme
+<strong class="text-success">Yeni</strong> - Log dosyasını indirme
+
+<strong>Katkıda Bulunanlar</strong>
+
+63 commit
+
+aysenur.avsar (19)
+vgoze (18)
+cem.kaya (8)
+bturk (6)
+cokkali (4)
+hgunes (4)
+hakan.topuz (3)
+sena.sahin (1)
+</pre>
+        </div>
+    </div>
+</div>
